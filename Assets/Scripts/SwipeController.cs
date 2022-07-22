@@ -182,9 +182,9 @@ public class SwipeController : MonoBehaviour
                 for (int k = 0; k < n1; k++)
                 {
                     lettersX[k].transform.position = new Vector2(lettersX[k].transform.position.x - surplusL, lettersX[k].transform.position.y);
-                    if (lettersX[k].transform.position.x > 2040)
+                    if (lettersX[k].transform.position.x > 2090) // 2040
                         lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);
-                    else if (lettersX[k].transform.position.x < -960)
+                    if (lettersX[k].transform.position.x < -1010) // -960
                         lettersX[k].transform.position = new Vector2(2040, lettersX[k].transform.position.y);
                 }
             }
@@ -197,9 +197,9 @@ public class SwipeController : MonoBehaviour
                 for (int k = 0; k < n2; k++)
                 {
                     lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);
-                    if (lettersY[k].transform.position.y > 2640)
+                    if (lettersY[k].transform.position.y > 2690) // 2640
                         lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -925);
-                    else if (lettersY[k].transform.position.y < -925)
+                    else if (lettersY[k].transform.position.y < -975) // -925
                         lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2640);
                 }
 
@@ -207,8 +207,6 @@ public class SwipeController : MonoBehaviour
                 //print(lettersY[0].ToString() + ": "+ (lettersY[0].transform.position.y+5).ToString());
                 //print(surplusL);
             }
-            
-
 
             isXmove = true;
             isYmove = true;

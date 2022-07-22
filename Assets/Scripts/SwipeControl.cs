@@ -6,6 +6,9 @@ using UnityEngine;
 // try to seperate them so that, while swiping serves for direction change, 
 // ..continuous touch serves ball forward movement
 
+// THIS IS THE OLDER VERSION THAT LIMITS THE ACTION OF THE LETTERS WHICH 
+//..REACHED THE SPECIFIED BORDERS
+
 public class SwipeControl : MonoBehaviour
 {
     private Vector2 startPos;
@@ -49,7 +52,7 @@ public class SwipeControl : MonoBehaviour
     {
         letters = GameObject.FindGameObjectsWithTag("Letter");
         lettersX = GameObject.FindGameObjectsWithTag("Letter"); // handle'em
-        lettersY = GameObject.FindGameObjectsWithTag("Letter");  
+        lettersY = GameObject.FindGameObjectsWithTag("Letter");
     }
 
     // after messing the letters, some places trigger other lanes to move
@@ -58,7 +61,7 @@ public class SwipeControl : MonoBehaviour
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         //                  FOR PC
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-       
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             //n = 0;
@@ -66,9 +69,9 @@ public class SwipeControl : MonoBehaviour
             // below loop provides us correct letter by handling with x/y coordinates
             for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
                 for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                
-                    if (startPos.x > (15+j*150) && startPos.x < (15+(j+1)*150) && startPos.y > (1485-(i+1)*150) && startPos.y < (1485-i*150))
+                    if (startPos.x > (15 + j * 150) && startPos.x < (15 + (j + 1) * 150) && startPos.y > (1485 - (i + 1) * 150) && startPos.y < (1485 - i * 150))
                         theLetter = letters[(i * 7) + j];
-                     
+
             letterPos = theLetter.transform.position;
             // adjust these loops as single of them will be executed at each buttonDown action
             for (int k = 0; k < letters.Length; k++)
@@ -112,7 +115,7 @@ public class SwipeControl : MonoBehaviour
             // left-boundary X: -600, Y: 440 / -645
 
             // xMove part causes some problems
-            if (isXmove)            
+            if (isXmove)
                 if (Input.mousePosition.x <= startPos.x - pD || Input.mousePosition.x >= startPos.x + pD)
                 {
                     isYmove = false;
@@ -125,43 +128,43 @@ public class SwipeControl : MonoBehaviour
                             isEmpty = true;
                             n3 = 0;
                             // the reason for two for-loop is the non-sequential letter indexes
-                            for (int i = n1-1; i > 2*n1/3-1; i--)
+                            for (int i = n1 - 1; i > 2 * n1 / 3 - 1; i--)
                             {
-                                lettersX[i].transform.position = new Vector2(89.9f+n3*150, lettersX[i].transform.position.y);
+                                lettersX[i].transform.position = new Vector2(89.9f + n3 * 150, lettersX[i].transform.position.y);
                                 n3++;
                             }
                             n3 = 0;
                             for (int i = 0; i < 2 * n1 / 3; i++)
                             {
-                                lettersX[i].transform.position = new Vector2(1140+n3*150, lettersX[i].transform.position.y);
+                                lettersX[i].transform.position = new Vector2(1140 + n3 * 150, lettersX[i].transform.position.y);
                                 n3++;
                             }
                             //lettersX[n1 - 1].transform.position = new Vector2(90, lettersX[n1 - 1].transform.position.y);
                         }
-                        else if (lettersX[2*n1/3-1].transform.position.x < 990)
+                        else if (lettersX[2 * n1 / 3 - 1].transform.position.x < 990)
                         {
                             isEmpty = true;
                             n3 = 0;
                             // the reason for two for-loop is the non-sequential letter indexes
                             for (int i = n1 - 1; i > 2 * n1 / 3 - 1; i--)
                             {
-                                lettersX[i].transform.position = new Vector2(-2010+n3*150, lettersX[i].transform.position.y);
+                                lettersX[i].transform.position = new Vector2(-2010 + n3 * 150, lettersX[i].transform.position.y);
                                 n3++;
                             }
                             n3 = 0;
                             for (int i = 0; i < 2 * n1 / 3; i++)
                             {
-                                lettersX[i].transform.position = new Vector2(-960+n3*150.1f, lettersX[i].transform.position.y);
+                                lettersX[i].transform.position = new Vector2(-960 + n3 * 150.1f, lettersX[i].transform.position.y);
                                 n3++;
                             }
                             //lettersX[2*n1/3-1].transform.position = new Vector2(990, lettersX[2*n1/3-1].transform.position.y);                            
                         }
                         if (!isEmpty)
                             lettersX[k].transform.Translate(moveX * laneSpeed * laneSpeed * Time.deltaTime, 0f, 0f);
-                    }      
+                    }
                 }
-            
-            if (isYmove)            
+
+            if (isYmove)
                 if (Input.mousePosition.y >= startPos.y + pD || Input.mousePosition.y <= startPos.y - pD)
                 {
                     isXmove = false;
@@ -174,16 +177,16 @@ public class SwipeControl : MonoBehaviour
                             isEmpty = true;
                             n3 = 0;
                             // the reason for two for-loop is the non-sequential letter indexes
-                            for (int i = n2-1; i > 2*n2/3-1; i--)
+                            for (int i = n2 - 1; i > 2 * n2 / 3 - 1; i--)
                             {
                                 lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 1400 - n3 * 155.1f);
                                 //lettersY[n2-1].transform.position = new Vector2(lettersY[n2-1].transform.position.x, 1400);
                                 n3++;
-                            }  
+                            }
                             n3 = 0;
-                            for (int i = 0; i < 2*n2/3; i++)
+                            for (int i = 0; i < 2 * n2 / 3; i++)
                             {
-                                lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 160 - n3*155.1f);
+                                lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 160 - n3 * 155.1f);
                                 n3++;
                             }
                         }
@@ -193,33 +196,33 @@ public class SwipeControl : MonoBehaviour
                             // the reason for two for-loop is the non-sequential letter indexes
                             // note that if the sequence changes: inside for loop, if letter number changes: Vector2.y changes
                             n3 = 0;
-                            for (int i = n2-1; i > 2*n2/3-1; i--)
+                            for (int i = n2 - 1; i > 2 * n2 / 3 - 1; i--)
                             {
                                 lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 3875 - n3 * 155.1f);
                                 n3++;
                             }
                             n3 = 0;
-                            for (int i = 0; i < 2*n2/3; i++)
+                            for (int i = 0; i < 2 * n2 / 3; i++)
                             {
-                                lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 2635-n3*155.1f);
+                                lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, 2635 - n3 * 155.1f);
                                 //lettersY[2*n2/3-1].transform.position = new Vector2(lettersY[2*n2/3-1].transform.position.x, 1550-n3*155);
                                 n3++;
-                            }                  
+                            }
                         }
                         if (!isEmpty)
                             lettersY[k].transform.Translate(0f, moveY * laneSpeed * laneSpeed * Time.deltaTime, 0f);
                     }
-                }            
+                }
         }
-        
+
         // statement that enables targeted axis motion and disables other
-        if (Input.GetMouseButtonUp(0)) 
-        { 
-            isXmove = true; 
-            isYmove = true; 
-            n1 = 0; n2 = 0; 
+        if (Input.GetMouseButtonUp(0))
+        {
+            isXmove = true;
+            isYmove = true;
+            n1 = 0; n2 = 0;
             isEmpty = false;
-        }              
+        }
 
         //if (fingerDown)
         //{

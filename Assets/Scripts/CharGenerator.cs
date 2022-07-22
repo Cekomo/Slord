@@ -7,10 +7,11 @@ public class CharGenerator : MonoBehaviour
 {
     // ** occuring of vowels must be more frequent to create more meaningful words
     // it can be done by adding multiple wovels inside the alphabet variable or mathematically
-    
+
     // it will be english characters only for now
-    //private string alphabet = "AAABCDEEEFGHIIIJKLMNOOOPQRSTUUUVWXYZ"; // letter stack to pick one of the element
-    private string alphabet = "N"; // letter stack to pick one of the element
+    private string alphabet = "AAABCDEEEFGHIIIJKLMNOOOPQRSTUUUVWXYZ"; // letter stack to pick one of the element
+    //private string alphabet = "N"; // to control other functions rather than charGenerator
+
     private string l; // it is a string converted from char that contains single random letter
     private GameObject[] letters; // all letters in LetterGround
 

@@ -31,6 +31,8 @@ public class SwipeController : MonoBehaviour
     private bool isYmove = true; // enables to move the letters along y-axis
     private bool isXmove = true; // enables to move the letters along x-axis
 
+    private float surplusL; // position surplus to place the letters into specific coordinate
+
     // Each block (letter) covers spesific area in coordinate lane
     // Find a way to determine the first-clicked block's coordinate
     //..and move it by sliding 
@@ -123,6 +125,7 @@ public class SwipeController : MonoBehaviour
                             lettersX[k].transform.Translate(-4.5f, 0f, 0f);
 
                         //print(moveY * laneSpeed * Time.deltaTime);
+                        print(lettersX[k].ToString() +": "+lettersX[k].transform.position.x.ToString());
 
                         if (lettersX[k].transform.position.x > 2190)
                             lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);
@@ -155,18 +158,61 @@ public class SwipeController : MonoBehaviour
                             lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2640);
                     }
                 }
-                
             }
         }
 
         // statement that enables targeted axis motion and disables other
         if (Input.GetMouseButtonUp(0))
         {
+            // (2640, -155, -925) !Below statement is not functional!
+            //if (!isXmove) // work from here if you need to rearrange letters due to 
+            //    for (int k = 0; k < n2; k++)
+            //        if ((lettersY[k].transform.position.y - 5) % 155 != 0)
+            //            for (int i = 0; i < lettersY.Length; i++)
+            //                if (lettersY[i].transform.position.y > (i * 155 - 925) - 77.5f && lettersY[i].transform.position.y < (i * 155 - 925) + 77.5f)
+            //                    lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, i * 155 - 925);
+
+            // (-960, 150, 2040)
+            if (!isYmove)
+            {
+                surplusL = (lettersX[0].transform.position.x + 60) % 150;
+                if (surplusL > 75)
+                    surplusL = -(150 - surplusL);
+
+                for (int k = 0; k < n1; k++)
+                {
+                    lettersX[k].transform.position = new Vector2(lettersX[k].transform.position.x - surplusL, lettersX[k].transform.position.y);
+                    if (lettersX[k].transform.position.x > 2040)
+                        lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);
+                    else if (lettersX[k].transform.position.x < -960)
+                        lettersX[k].transform.position = new Vector2(2040, lettersX[k].transform.position.y);
+                }
+            }
+            if (!isXmove)
+            {
+                surplusL = (lettersY[0].transform.position.y - 5) % 155;
+                if (surplusL > 77.5f)
+                    surplusL = -(155 - surplusL);
+                
+                for (int k = 0; k < n2; k++)
+                {
+                    lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);
+                    if (lettersY[k].transform.position.y > 2640)
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -925);
+                    else if (lettersY[k].transform.position.y < -925)
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2640);
+                }
+
+                // to check 
+                //print(lettersY[0].ToString() + ": "+ (lettersY[0].transform.position.y+5).ToString());
+                //print(surplusL);
+            }
+            
+
+
             isXmove = true;
             isYmove = true;
             n1 = 0; n2 = 0;
-
-
         }
     }
 }

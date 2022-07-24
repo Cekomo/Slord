@@ -65,7 +65,7 @@ public class SwipeControl : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //n = 0;
-            startPos = Input.mousePosition; // this and below variable may cause problem due to common use
+            startPos = Input.mousePosition; // this and below variable may cause problem due to common 
             // below loop provides us correct letter by handling with x/y coordinates
             for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
                 for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                

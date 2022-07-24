@@ -63,14 +63,13 @@ public class SwipeController : MonoBehaviour
         {
             //n = 0;          
             startPos = Input.mousePosition; // this and below variable may cause problem due to common use
-            
+            print(startPos);
             for (int i = 0; i < letters.Length; i++)
             {
                 letterPos = letters[i].transform.position;
-                if (startPos.x > letterPos.x-75 && startPos.x < letterPos.x+75 && startPos.y > letterPos.y-77.5f && startPos.y < letterPos.y+77.5f)
-                {
-                    theLetter = letters[i]; print("assigned");
-                }
+                if (startPos.x > letterPos.x-75 && startPos.x < letterPos.x+75 && startPos.y > letterPos.y-77.5f && startPos.y < letterPos.y+77.5f)               
+                    theLetter = letters[i]; 
+                
             }
                     //// below loop provides us correct letter by handling with x/y coordinates
                     //for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
@@ -117,7 +116,6 @@ public class SwipeController : MonoBehaviour
             // very right-boundary X: 1500, Y: 440 / -645
             // very left-boundary X: -1500, Y: 440 / -645
 
-            // xMove part causes some problems
             if (isXmove)
                 if (Input.mousePosition.x <= startPos.x - pD || Input.mousePosition.x >= startPos.x + pD)
                 {
@@ -134,7 +132,9 @@ public class SwipeController : MonoBehaviour
                             lettersX[k].transform.Translate(-4.5f, 0f, 0f);
 
                         //print(moveY * laneSpeed * Time.deltaTime);
-                        //print(lettersX[k].ToString() +": "+lettersX[k].transform.position.x.ToString());
+                        print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.x.ToString());
+                        print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.y.ToString());
+
 
                         if (lettersX[k].transform.position.x > 2190)
                             lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);

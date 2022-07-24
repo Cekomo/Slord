@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// for now, direction change and ball forward movement work together
-// try to seperate them so that, while swiping serves for direction change, 
-// ..continuous touch serves ball forward movement
+// limit the swipe controller inside of the table
+// currently, outside letters can be swiped
 
 public class SwipeController : MonoBehaviour
 {
@@ -62,15 +61,25 @@ public class SwipeController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            //n = 0;
+            //n = 0;          
             startPos = Input.mousePosition; // this and below variable may cause problem due to common use
-            // below loop provides us correct letter by handling with x/y coordinates
-            for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
-                for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                
-                    if (startPos.x > (15 + j * 150) && startPos.x < (15 + (j + 1) * 150) && startPos.y > (1485 - (i + 1) * 150) && startPos.y < (1485 - i * 150))
-                        theLetter = letters[(i * 7) + j];
+            
+            for (int i = 0; i < letters.Length; i++)
+            {
+                letterPos = letters[i].transform.position;
+                if (startPos.x > letterPos.x-75 && startPos.x < letterPos.x+75 && startPos.y > letterPos.y-77.5f && startPos.y < letterPos.y+77.5f)
+                {
+                    theLetter = letters[i]; print("assigned");
+                }
+            }
+                    //// below loop provides us correct letter by handling with x/y coordinates
+                    //for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
+                    //    for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                
+                    //        if (startPos.x > (15+j*150) && startPos.x < (15+(j+1)*150) && startPos.y > (1485-(i+1)*150) && startPos.y < (1485-i*150))                 
+                    //            theLetter = letters[(i * 7) + j];                    
 
-            letterPos = theLetter.transform.position;
+                    //print(theLetter); // inspect the letter transition to understand the error
+                    letterPos = theLetter.transform.position;
             // adjust these loops as single of them will be executed at each buttonDown action
             for (int k = 0; k < letters.Length; k++)
                 if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
@@ -125,7 +134,7 @@ public class SwipeController : MonoBehaviour
                             lettersX[k].transform.Translate(-4.5f, 0f, 0f);
 
                         //print(moveY * laneSpeed * Time.deltaTime);
-                        print(lettersX[k].ToString() +": "+lettersX[k].transform.position.x.ToString());
+                        //print(lettersX[k].ToString() +": "+lettersX[k].transform.position.x.ToString());
 
                         if (lettersX[k].transform.position.x > 2190)
                             lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);
@@ -181,6 +190,9 @@ public class SwipeController : MonoBehaviour
 
                 for (int k = 0; k < n1; k++)
                 {
+                    // it brokes the editor
+                    //while (lettersX[k].transform.position.x < lettersX[k].transform.position.x - surplusL)
+                    //    lettersX[k].transform.Translate(-surplusL * Time.deltaTime, 0f, 0f);
                     lettersX[k].transform.position = new Vector2(lettersX[k].transform.position.x - surplusL, lettersX[k].transform.position.y);
                     if (lettersX[k].transform.position.x > 2090) // 2040
                         lettersX[k].transform.position = new Vector2(-960, lettersX[k].transform.position.y);

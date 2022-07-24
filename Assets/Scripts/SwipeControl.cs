@@ -61,7 +61,7 @@ public class SwipeControl : MonoBehaviour
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         //                  FOR PC
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-       
-
+        print(theLetter);
         if (Input.GetMouseButtonDown(0))
         {
             //n = 0;
@@ -70,7 +70,7 @@ public class SwipeControl : MonoBehaviour
             for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
                 for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                
                     if (startPos.x > (15 + j * 150) && startPos.x < (15 + (j + 1) * 150) && startPos.y > (1485 - (i + 1) * 150) && startPos.y < (1485 - i * 150))
-                        theLetter = letters[(i * 7) + j];
+                        theLetter = letters[(i * 7) + j];                
 
             letterPos = theLetter.transform.position;
             // adjust these loops as single of them will be executed at each buttonDown action

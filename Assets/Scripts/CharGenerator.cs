@@ -15,7 +15,7 @@ public class CharGenerator : MonoBehaviour
     private string l; // it is a string converted from char that contains single random letter
     private GameObject[] letters; // all letters in LetterGround
 
-    void Start()
+    void Awake() // random char generation should be inside Awake() function due to the priority 
     {
         letters = GameObject.FindGameObjectsWithTag("Letter");
 

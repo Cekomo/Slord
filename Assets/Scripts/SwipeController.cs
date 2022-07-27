@@ -4,6 +4,7 @@ using UnityEngine;
 
 // limit the swipe controller inside of the table
 // currently, outside letters can be swiped
+// sometimes picked letter does not place the swiped but the previous one
 
 public class SwipeController : MonoBehaviour
 {

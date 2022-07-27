@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class WordCatcher : MonoBehaviour
 {
+    public SwipeController swipeController; 
+
     private Vector2 letterPos; // (temp) position of the letter 
     private Vector2 letterPosX; // (temp) position of the letter to build desired word 
     private GameObject[] letters; // represents all letters in the system
@@ -19,7 +21,7 @@ public class WordCatcher : MonoBehaviour
 
     private int k; // increment to add elements in tableLetters array
     private int t; // increment to add elements in text letter array
-    private int p; //to determine index of a word in for loop
+    private int p; //to determine index of a word in for 
 
     void Start()
     {
@@ -30,7 +32,7 @@ public class WordCatcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0)) // check if it causes any problem
+        if (Input.GetMouseButtonUp(0) && !swipeController.isFinished) // check if it causes any problem
         {
             k = 0;
             for (int i = 0; i < letters.Length; i++)
@@ -67,12 +69,12 @@ public class WordCatcher : MonoBehaviour
                         letterPosX = tableLetters[j].transform.position;
 
                         // to determine if the next word is the one or not by looking x/y-axis
-                        if (tableLetters[j].GetComponent<Text>().text[0] == theWord1[p] && letterPosX.x < letterPos.x + 155 && letterPosX.x > letterPos.x + 145 && letterPos.y + 5 > letterPosX.y && letterPos.y - 5 < letterPosX.y)
+                        if (tableLetters[j].GetComponent<Text>().text[0] == theWord1[p] && letterPosX.x < letterPos.x+155 && letterPosX.x > letterPos.x+145 && letterPos.y+5 > letterPosX.y && letterPos.y-5 < letterPosX.y)
                         {
                             desiredWord1 += theWord1[p].ToString();
                             letterPos = tableLetters[j].transform.position;
                         }
-                        else if (tableLetters[j].GetComponent<Text>().text[0] == theWord1[p] && letterPosX.y > letterPos.y - 160 && letterPosX.y < letterPos.y - 150 && letterPos.x + 5 > letterPosX.x && letterPos.x - 5 < letterPosX.x)
+                        else if (tableLetters[j].GetComponent<Text>().text[0] == theWord1[p] && letterPosX.y > letterPos.y-160 && letterPosX.y < letterPos.y-150 && letterPos.x+5 > letterPosX.x && letterPos.x-5 < letterPosX.x)
                         {
                             desiredWord1 += theWord1[p].ToString();
                             letterPos = tableLetters[j].transform.position;
@@ -89,8 +91,11 @@ public class WordCatcher : MonoBehaviour
                 if (tempWord1.Length >= theWord1.Length) // this statement is for avoiding outofrange exception
                     desiredWord1 += tempWord1[i];
             
-            if (desiredWord1 == theWord1)
-                    print("You Win!");
+            if (desiredWord1 == theWord1) 
+            {
+                print("You Win!");
+                swipeController.isFinished = true; // deactivate this for experimental pusposes
+            }    
         }
     }
 }

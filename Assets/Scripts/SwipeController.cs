@@ -8,13 +8,15 @@ using UnityEngine;
 
 public class SwipeController : MonoBehaviour
 {
-    private Vector2 startPos;
+    private Vector2 startPos; // starting position of mouse click
     private int pD = 15; // pixel distance to detect the swipe action
     [HideInInspector] public bool fingerDown;
 
-    public float laneSpeed;
-    private float moveX;
-    private float moveY;
+    public float laneSpeed; // speed constant of the lane while moving it
+    private float moveX; // to move the lane in x-axis
+    private float moveY; // to move the lane in y-axis
+
+    private bool inTable; // to determine if the mouse click is in table or not
 
     private GameObject[] letters; // represents all letters in the table
     private GameObject theLetter; // represents clicked letter
@@ -33,6 +35,8 @@ public class SwipeController : MonoBehaviour
 
     private float surplusL; // position surplus to place the letters into specific coordinate
 
+    [HideInInspector] public bool isFinished = false;
+
     // Each block (letter) covers spesific area in coordinate lane
     // Find a way to determine the first-clicked block's coordinate
     //..and move it by sliding 
@@ -43,7 +47,7 @@ public class SwipeController : MonoBehaviour
     // left-bottom (14, 240)
     // right-bottom (1065, 240)
 
-    // one edge of the square is 150
+    // one edge of the square is 150 for x-axis and 155 for y-axis
 
     // as an approach, name all the squares, determine their borders
     void Start()
@@ -58,18 +62,19 @@ public class SwipeController : MonoBehaviour
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         //                  FOR PC
-        // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-       
+        // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+        if(Input.GetMouseButtonDown(0)) startPos = Input.mousePosition;
+        if (startPos.x > 25 && startPos.x < 1055 && startPos.y < 1475 && startPos.y > 250) inTable = true;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && inTable && !isFinished)
         {
             //n = 0;          
             startPos = Input.mousePosition; // this and below variable may cause problem due to common use
             for (int i = 0; i < letters.Length; i++)
             {
-                letterPos = letters[i].transform.position;
-                if (startPos.x > letterPos.x-75 && startPos.x < letterPos.x+75 && startPos.y > letterPos.y-77.5f && startPos.y < letterPos.y+77.5f)               
-                    theLetter = letters[i]; 
-                
+                letterPos = letters[i].transform.position; // to determine the letter to move on x/y-axis
+                    if (startPos.x > letterPos.x-75 && startPos.x < letterPos.x+75 && startPos.y > letterPos.y-77.5f && startPos.y < letterPos.y+77.5f)               
+                        theLetter = letters[i];            
             }
                     
             //for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
@@ -81,18 +86,18 @@ public class SwipeController : MonoBehaviour
             letterPos = theLetter.transform.position;
             // adjust these loops as single of them will be executed at each buttonDown action
             for (int k = 0; k < letters.Length; k++)
-                if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
-                {
-                    lettersX[n1] = letters[k];
-                    n1++;
-                }
+                    if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
+                    {
+                        lettersX[n1] = letters[k];
+                        n1++;
+                    }
             //n = 0;
             for (int l = 0; l < letters.Length; l++)
-                if (letters[l].transform.position.x > letterPos.x - 75 && letters[l].transform.position.x < letterPos.x + 75)
-                {
-                    lettersY[n2] = letters[l];
-                    n2++;
-                }
+                    if (letters[l].transform.position.x > letterPos.x - 75 && letters[l].transform.position.x < letterPos.x + 75)
+                    {
+                        lettersY[n2] = letters[l];
+                        n2++;
+                    }
         }
 
         moveX = Input.GetAxis("Mouse X");
@@ -104,18 +109,8 @@ public class SwipeController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             startPos = Input.mousePosition;
 
-        if (fingerDown)
+        if (fingerDown && inTable && !isFinished)
         {
-            // up-boundary X: -450 / 450, Y: 595
-            // down-boundary X: -450 / 450, Y: -800
-            // right-boundary X: 600, Y: 440 / -645
-            // left-boundary X: -600, Y: 440 / -645
-
-            // very up-boundary X: -450 / 450, Y: 1680
-            // very down-boundary X: -450 / 450, Y: -1885
-            // very right-boundary X: 1500, Y: 440 / -645
-            // very left-boundary X: -1500, Y: 440 / -645
-
             if (isXmove)
                 if (Input.mousePosition.x <= startPos.x - pD || Input.mousePosition.x >= startPos.x + pD)
                 {
@@ -170,7 +165,7 @@ public class SwipeController : MonoBehaviour
         }
 
         // statement that enables targeted axis motion and disables other
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && inTable && !isFinished)
         {
             // (2640, -155, -925) !Below statement is not functional!
             //if (!isXmove) // work from here if you need to rearrange letters due to 
@@ -223,5 +218,7 @@ public class SwipeController : MonoBehaviour
             isYmove = true;
             n1 = 0; n2 = 0;
         }
+
+        inTable = false; // after loop finishes, inTable is false for the next loop
     }
 }

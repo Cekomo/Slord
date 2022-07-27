@@ -5379,6 +5379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fingerDown: 0
   laneSpeed: 10000
+  isFinished: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5448,7 +5449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd998bf2f4dece419200d71dba60619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textCanvas: {fileID: 0}
+  swipeController: {fileID: 519420030}
 --- !u!1 &527110341
 GameObject:
   m_ObjectHideFlags: 0

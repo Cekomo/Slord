@@ -2,4 +2,4 @@
 Letter sliding game to generate a meaningful word.
 
 # Bug
-After sliding some lines, sliding mechanism may work improperly. The sliding does not affect the corresponding lane but lane before or after that lane.
+Sometimes the word does not place the intended tile but the previous one after sliding it. (Not a high priority)

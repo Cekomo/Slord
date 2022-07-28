@@ -7,7 +7,7 @@ using UnityEngine;
 // sometimes picked letter does not place the swiped but the previous one
 
 public class SwipeController : MonoBehaviour
-{
+{    
     private Vector2 startPos; // starting position of mouse click
     private int pD = 15; // pixel distance to detect the swipe action
     [HideInInspector] public bool fingerDown;

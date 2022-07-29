@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Letter
   - LetterAxis
+  - InterfaceText
   layers:
   - Default
   - TransparentFX

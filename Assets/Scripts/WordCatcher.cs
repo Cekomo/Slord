@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// there is a problem about catching the word
+// it does not catch the word when there is a letter inside the word 
+//..is near to one of the letters fix this
+
+// the lack of catching can be dependent of single letter; for instance 
+//..when "A" causes problem, swapping that "A" with other letter fixes the problem
+
 public class WordCatcher : MonoBehaviour
 {
     public SwipeController swipeController;

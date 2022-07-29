@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ControlPanel : MonoBehaviour
 {
     public SceneLoader sceneLoader;
+    public SwipeController swipeController;
 
     private GameObject[] interfaces;
 
@@ -27,7 +28,8 @@ public class ControlPanel : MonoBehaviour
     
     public void ResetTheGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (!swipeController.isFinished)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Exit()
@@ -42,6 +44,7 @@ public class ControlPanel : MonoBehaviour
         else
             interfaces[2].GetComponent<Text>().text = "Level " + (level + 1).ToString();
     }
+
 
     /*
 

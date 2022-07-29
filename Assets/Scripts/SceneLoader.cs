@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
 
     // levelWords are the array that specifies the correct word should be matched per level 
     // increasing the array means increasing levels at the same time
-    private string[] levelWords = { "GOAT", "PIXAR", "SCAM", "BOOTY", "PARADISE", "MILKY" };
+    private string[] levelWords = { "GOAT", "PIXAR", "SCAM", "BOOTS", "PARADISE", "MILKY" };
     [HideInInspector] public string theWord; // the word should be matched to pass the level determined by level index
 
     [HideInInspector] public int activeScene; // to determine and save the index of the scene
@@ -32,27 +32,34 @@ public class SceneLoader : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && swipeController.isFinished)
-        {
-            SaveLevel();
-            SceneLoad();
-        }
+        //if (Input.GetMouseButtonDown(0) && swipeController.isFinished)
+        //{
+        //    SaveLevel();
+        //    SceneLoad();
+        //}
 
 
     }
 
     public void SceneLoad()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        activeScene = PlayerPrefs.GetInt("ActiveScene");
+        if (swipeController.isFinished)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            activeScene = PlayerPrefs.GetInt("ActiveScene");
+        }
+            
         //SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
     }
 
     public void SaveLevel()
     {
-        temp = PlayerPrefs.GetInt("ActiveScene");
-        PlayerPrefs.SetInt("ActiveScene", activeScene+1);
-        PlayerPrefs.Save();
+        if (swipeController.isFinished)
+        {
+            temp = PlayerPrefs.GetInt("ActiveScene");
+            PlayerPrefs.SetInt("ActiveScene", activeScene + 1);
+            PlayerPrefs.Save();
+        }
     }
 
 }

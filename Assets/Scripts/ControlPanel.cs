@@ -12,12 +12,15 @@ public class ControlPanel : MonoBehaviour
 
     private GameObject[] interfaces;
 
-    private string score; // abbreviation of score interface
     private int zeroAdd; // to add zero for each missing number on score board
     private float floatScore; // assign the score as float from string
+    private int totalScore; // total score gaining from each level
+    private bool scoreBool; // boolean to block multiple additions to the total score
 
     void Start()
     {
+        scoreBool = true;
+
         // each interface represents specific text field or button
         interfaces = GameObject.FindGameObjectsWithTag("InterfaceText");
         // interfaces[0] = TheWorldBar, interfaces[1] = Score, interfaces[2] = LevelNumber
@@ -26,11 +29,11 @@ public class ControlPanel : MonoBehaviour
         
         // to set the initial score shown in board
         interfaces[1].GetComponent<Text>().text = (100 * sceneLoader.theWord.Length).ToString(); // to determine interface score      
-        score = interfaces[1].GetComponent<Text>().text;
-        zeroAdd = 6 - score.Length;
-        for (int i = 0; i < zeroAdd; i++)
-            score = "0" + score;        
-        interfaces[1].GetComponent<Text>().text = score;
+        ScoreSetter();
+        
+        // for experimental purposes
+        //PlayerPrefs.SetInt("TotalScore", 0);
+        //PlayerPrefs.Save();
     }
 
     void Update()
@@ -39,19 +42,31 @@ public class ControlPanel : MonoBehaviour
         {
             // decrease the score with each swipe operation leter by letter
             // ------------------------------------
-            floatScore = float.Parse(interfaces[1].GetComponent<Text>().text);
-            floatScore = floatScore - swipeController.pointDecrement;
+            floatScore = float.Parse(interfaces[1].GetComponent<Text>().text);          
+            if (floatScore >= 20 * sceneLoader.theWord.Length) // it has problem (not stop at %20 percent)
+                floatScore = floatScore - swipeController.pointDecrement;
+            
             swipeController.pointDecrement = 0;
             interfaces[1].GetComponent<Text>().text = floatScore.ToString();
+            
             // ------------------------------------
 
-            // to adjust the score board repeatedly
-            // ------------------------------------
-            zeroAdd = 6 - interfaces[1].GetComponent<Text>().text.Length;
-            for (int i = 0; i < zeroAdd; i++)
-                interfaces[1].GetComponent<Text>().text = "0" + interfaces[1].GetComponent<Text>().text;
-            // ------------------------------------
-            
+            ScoreSetter(); // to adjust the score board 
+        }
+
+        if(swipeController.isFinished && scoreBool) // show total score when the level is completed until going next level
+        {
+            sceneLoader.SaveLevel();
+
+            totalScore = PlayerPrefs.GetInt("TotalScore"); 
+            totalScore += (int)floatScore;
+            print(totalScore);
+            PlayerPrefs.SetInt("TotalScore", totalScore);
+            PlayerPrefs.Save();
+            interfaces[1].GetComponent<Text>().text = totalScore.ToString(); 
+
+            scoreBool = false; 
+            ScoreSetter(); // to adjust the score board 
         }
     }
     
@@ -74,7 +89,12 @@ public class ControlPanel : MonoBehaviour
             interfaces[2].GetComponent<Text>().text = "Level " + (level + 1).ToString();
     }
 
-
+    void ScoreSetter()
+    {
+        zeroAdd = 6 - interfaces[1].GetComponent<Text>().text.Length;
+        for (int i = 0; i < zeroAdd; i++)
+            interfaces[1].GetComponent<Text>().text = "0" + interfaces[1].GetComponent<Text>().text;
+    }
     /*
 
      public void OpenPanel()

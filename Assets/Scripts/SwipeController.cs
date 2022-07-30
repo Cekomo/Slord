@@ -173,7 +173,7 @@ public class SwipeController : MonoBehaviour
         }
 
         // this statement is for decreasing the point for every letter swiping from the score
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) // nextLevel button error occurs here when presses
         {
             if (isXmove && Mathf.Abs(letterPos.x - theLetter.transform.position.x) >= 150)
             {

@@ -15,17 +15,18 @@ public class SceneLoader : MonoBehaviour
     [HideInInspector] public string theWord; // the word should be matched to pass the level determined by level index
 
     [HideInInspector] public int activeScene; // to determine and save the index of the scene
-    private int temp;
-    //private int currentScene; // to determine and save the index of the scene
-    //private int loadScene; // variable determined by activeScene to load a scene
+    private int temp; // temproray variable for scene number
 
     void Awake()
     {
         // to adjust the fps as 60
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 60;
-        
-        // PlayerPrefs.SetInt("ActiveScene", 0); // to reset the level
+
+        // to reset the level
+        //PlayerPrefs.SetInt("ActiveScene", 0); 
+        //PlayerPrefs.Save();
+
         // the place allows maximum of 9 letters for word (not wide letters included)
         activeScene = PlayerPrefs.GetInt("ActiveScene");
         theWord = levelWords[activeScene];

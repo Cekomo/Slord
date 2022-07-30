@@ -6,6 +6,8 @@ using UnityEngine;
 // currently, outside letters can be swiped
 // sometimes picked letter does not place the swiped but the previous one
 
+// with the exact placement of the letters to their specific positions, some the 
+//..statemets become redundant, you can fix'em
 public class SwipeController : MonoBehaviour
 {    
     private Vector2 startPos; // starting position of mouse click
@@ -23,6 +25,9 @@ public class SwipeController : MonoBehaviour
     private Vector2 letterPos; // represents clicked letter's position
     private Vector2 tileBoundary1; // to limit movement of the letters from one end
     private Vector2 tileBoundary2; // to limit movement of the letters from other end
+
+    [HideInInspector] public float pointDecrement; // to decrease the point with each swipe
+    private float distDiff; // to determine point decrement by checking the swiping distance
 
     private GameObject[] lettersX; // all letters at the same x-axis of clicked letter
     private GameObject[] lettersY; // all letters at the same y-axis of clicked letter
@@ -52,6 +57,8 @@ public class SwipeController : MonoBehaviour
     // as an approach, name all the squares, determine their borders
     void Start()
     {
+        pointDecrement = 0f; // make it zero for each level
+
         letters = GameObject.FindGameObjectsWithTag("Letter");
         lettersX = GameObject.FindGameObjectsWithTag("Letter"); // handle'em
         lettersY = GameObject.FindGameObjectsWithTag("Letter");
@@ -84,6 +91,7 @@ public class SwipeController : MonoBehaviour
 
             //print(theLetter); // inspect the letter transition to understand the error
             letterPos = theLetter.transform.position;
+            print(letterPos);
             // adjust these loops as single of them will be executed at each buttonDown action
             for (int k = 0; k < letters.Length; k++)
                     if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
@@ -164,9 +172,32 @@ public class SwipeController : MonoBehaviour
             }
         }
 
+        // this statement is for decreasing the point for every letter swiping from the score
+        if (Input.GetMouseButton(0))
+        {
+            if (isXmove && Mathf.Abs(letterPos.x - theLetter.transform.position.x) >= 150)
+            {
+                distDiff = letterPos.x - theLetter.transform.position.x;
+                pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 150) * 3;
+                print(pointDecrement);
+                letterPos.x = theLetter.transform.position.x;   
+            }
+            else if (isYmove && Mathf.Abs(letterPos.y - theLetter.transform.position.y) >= 155)
+            {
+                distDiff = letterPos.y - theLetter.transform.position.y;
+                pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 155) * 3;
+                print(pointDecrement);
+                letterPos.y = theLetter.transform.position.y;   
+            }
+        }
+
         // statement that enables targeted axis motion and disables other
         if (Input.GetMouseButtonUp(0) && inTable && !isFinished)
         {
+            // two statements below is to calculate point increment on x/y axis
+            
+            //print(Mathf.Abs(distDiff));
+
             // (2640, -155, -925) !Below statement is not functional!
             //if (!isXmove) // work from here if you need to rearrange letters due to 
             //    for (int k = 0; k < n2; k++)
@@ -176,6 +207,7 @@ public class SwipeController : MonoBehaviour
             //                    lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, i * 155 - 925);
 
             // (-960, 150, 2040)
+
             if (!isYmove)
             {
                 surplusL = (lettersX[0].transform.position.x + 60) % 150;

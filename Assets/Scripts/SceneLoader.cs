@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// note that sceneLoader is to not load different scene, it loads the words when the word matched correctly
 public class SceneLoader : MonoBehaviour
 {
     public SwipeController swipeController;
@@ -28,16 +29,6 @@ public class SceneLoader : MonoBehaviour
         // the place allows maximum of 9 letters for word (not wide letters included)
         activeScene = PlayerPrefs.GetInt("ActiveScene");
         theWord = levelWords[activeScene];
-    }
-
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0) && swipeController.isFinished)
-        //{
-        //    SaveLevel();
-        //    SceneLoad();
-        //}
-
 
     }
 

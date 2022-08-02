@@ -91,7 +91,7 @@ public class SwipeController : MonoBehaviour
 
             //print(theLetter); // inspect the letter transition to understand the error
             letterPos = theLetter.transform.position;
-            print(letterPos);
+            //print(letterPos);
             // adjust these loops as single of them will be executed at each buttonDown action
             for (int k = 0; k < letters.Length; k++)
                     if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
@@ -179,14 +179,14 @@ public class SwipeController : MonoBehaviour
             {
                 distDiff = letterPos.x - theLetter.transform.position.x;
                 pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 150) * 3;
-                print(pointDecrement);
+                //print(pointDecrement);
                 letterPos.x = theLetter.transform.position.x;   
             }
             else if (isYmove && Mathf.Abs(letterPos.y - theLetter.transform.position.y) >= 155)
             {
                 distDiff = letterPos.y - theLetter.transform.position.y;
                 pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 155) * 3;
-                print(pointDecrement);
+                //print(pointDecrement);
                 letterPos.y = theLetter.transform.position.y;   
             }
         }

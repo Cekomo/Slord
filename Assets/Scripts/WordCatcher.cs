@@ -19,7 +19,7 @@ public class WordCatcher : MonoBehaviour
     private Vector2 letterPosX; // (temp) position of the letter to build desired word 
     private GameObject[] letters; // represents all letters in the system
     private GameObject[] tableLetters; // represents all letters in the table
-    
+
     //private string theWord1; // the word needed to be found in table
     private string desiredWord1; // the word that is constructed by user
     private string tempWord1; // temp for checking created word by sliding
@@ -33,7 +33,7 @@ public class WordCatcher : MonoBehaviour
 
     void Start()
     {
-        
+
         letters = GameObject.FindGameObjectsWithTag("Letter");
         // try to find a way to eliminate letters out of scope (tableLetters)
         tableLetters = GameObject.FindGameObjectsWithTag("Letter");
@@ -67,7 +67,7 @@ public class WordCatcher : MonoBehaviour
             //for (int i = 0; i < t; i++) // too see the the needed letters in the table
             //    print(tableLetters[i].ToString() + ": " + tableLetters[i].GetComponent<Text>().text[0].ToString());
             desiredWord1 = sceneLoader.theWord[0].ToString();
-            
+
             for (int k = 0; k < t; k++)
                 if (tableLetters[k].GetComponent<Text>().text[0] == sceneLoader.theWord[0])
                 {
@@ -78,33 +78,33 @@ public class WordCatcher : MonoBehaviour
                         letterPosX = tableLetters[j].transform.position;
 
                         // to determine if the next word is the one or not by looking x/y-axis
-                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x+155 && letterPosX.x > letterPos.x+145 && letterPos.y+5 > letterPosX.y && letterPos.y-5 < letterPosX.y)
+                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x + 155 && letterPosX.x > letterPos.x + 145 && letterPos.y + 5 > letterPosX.y && letterPos.y - 5 < letterPosX.y)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
                         }
-                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y-160 && letterPosX.y < letterPos.y-150 && letterPos.x+5 > letterPosX.x && letterPos.x-5 < letterPosX.x)
+                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 160 && letterPosX.y < letterPos.y - 150 && letterPos.x + 5 > letterPosX.x && letterPos.x - 5 < letterPosX.x)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
                         }
                         // if statement is checking for next needed letter in the respective axis
-                        if (j == t-1 && p < sceneLoader.theWord.Length-1) { p++; j = 0; }
+                        if (j == t - 1 && p < sceneLoader.theWord.Length - 1) { p++; j = 0; }
                     }
-                } 
-            
+                }
+
             tempWord1 = desiredWord1;
             print(tempWord1);
             desiredWord1 = "";
             for (int i = 0; i < sceneLoader.theWord.Length; i++)
                 if (tempWord1.Length >= sceneLoader.theWord.Length) // this statement is for avoiding outofrange exception
                     desiredWord1 += tempWord1[i];
-            
-            if (desiredWord1 == sceneLoader.theWord) 
+
+            if (desiredWord1 == sceneLoader.theWord)
             {
                 print("You Win!");
                 swipeController.isFinished = true; // deactivate this for experimental pusposes
-            }    
+            }
         }
     }
 }

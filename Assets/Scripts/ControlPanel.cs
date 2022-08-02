@@ -60,7 +60,7 @@ public class ControlPanel : MonoBehaviour
 
             totalScore = PlayerPrefs.GetInt("TotalScore"); 
             totalScore += (int)floatScore;
-            print(totalScore);
+            //print(totalScore);
             PlayerPrefs.SetInt("TotalScore", totalScore);
             PlayerPrefs.Save();
             interfaces[1].GetComponent<Text>().text = totalScore.ToString(); 
@@ -95,32 +95,4 @@ public class ControlPanel : MonoBehaviour
         for (int i = 0; i < zeroAdd; i++)
             interfaces[1].GetComponent<Text>().text = "0" + interfaces[1].GetComponent<Text>().text;
     }
-    /*
-
-     public void OpenPanel()
-    {
-        if(HowToPanel != null)
-        {
-            Time.timeScale = 0;
-
-            HowToPanel.SetActive(true);
-            Panel.SetActive(false);
-            HelpPanel.SetActive(false);
-        }
-        
-    }
-    public void OpenPanell()
-    {
-        if (Panel != null)
-        {
-            Time.timeScale = 1;
-
-            //txt.text = "?";
-            HowToPanel.SetActive(false);
-            Panel.SetActive(true);
-            HelpPanel.SetActive(true);
-        }
-        
-    } 
-    */
 }

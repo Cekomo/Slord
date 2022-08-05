@@ -309,7 +309,7 @@ public class SwipeController : MonoBehaviour
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         
         if (Input.GetTouch(0).phase == TouchPhase.Began) startPos = Input.touches[0].position;
-        if (startPos.x > 20 && startPos.x < 1050 && startPos.y < 1650 && startPos.y > 450) inTable = true;
+        if (startPos.x > 20 && startPos.x < 1050 && startPos.y > 295 && startPos.y < 1495) inTable = true;
 
         if (Input.GetTouch(0).phase == TouchPhase.Began && inTable && !isFinished)
         {

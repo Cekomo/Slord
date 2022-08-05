@@ -52,10 +52,10 @@ public class WordCatcher : MonoBehaviour
             {
                 letterPos = letters[i].transform.position;
                 // the coordinates below can be optimized
-                if (letterPos.x < 995 && letterPos.x > 85 && letterPos.y < 1380 && letterPos.y > 285)
+                if (letterPos.x > 20 && letterPos.x < 1050 && letterPos.y > 295 && letterPos.y < 1495)
                 {   // this statement provides the algorithm to detect the letters on the table
                     tableLetters[k] = letters[i];
-                    k++;
+                    k++;                    
                 }
             }
 
@@ -83,12 +83,12 @@ public class WordCatcher : MonoBehaviour
                         letterPosX = tableLetters[j].transform.position;
 
                         // to determine if the next word is the one or not by looking x/y-axis
-                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x + 105 && letterPosX.x > letterPos.x + 115 && letterPos.y + 4 > letterPosX.y && letterPos.y - 4 < letterPosX.y)
+                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x + 155 && letterPosX.x > letterPos.x + 145 && letterPos.y + 5 > letterPosX.y && letterPos.y - 5 < letterPosX.y)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
                         }
-                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 120 && letterPosX.y < letterPos.y - 110 && letterPos.x + 4 > letterPosX.x && letterPos.x - 4 < letterPosX.x)
+                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 160 && letterPosX.y < letterPos.y - 150 && letterPos.x + 5 > letterPosX.x && letterPos.x - 5 < letterPosX.x)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;

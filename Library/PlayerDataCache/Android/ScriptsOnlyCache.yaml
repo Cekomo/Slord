@@ -19,6 +19,9 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
+    Unity.DeviceSimulator.Editor.dll:
+    - UnityEditor.DeviceSimulation.DeviceInfoAsset
+    - UnityEditor.DeviceSimulation.SimulatorWindow
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.TestRunner.dll:
@@ -56,25 +59,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1528}
     - Class: 114
-      Script: {instanceID: 1694}
+      Script: {instanceID: 1700}
     - Class: 114
-      Script: {instanceID: 2256}
+      Script: {instanceID: 2276}
     - Class: 114
-      Script: {instanceID: 2654}
+      Script: {instanceID: 2678}
     - Class: 114
-      Script: {instanceID: 2682}
+      Script: {instanceID: 2706}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2878}
     - Class: 114
-      Script: {instanceID: 3090}
+      Script: {instanceID: 3122}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3374}
     - Class: 114
-      Script: {instanceID: 3456}
+      Script: {instanceID: 3498}
     - Class: 114
-      Script: {instanceID: 5398}
+      Script: {instanceID: 5472}
     - Class: 114
-      Script: {instanceID: 5850}
+      Script: {instanceID: 5936}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128

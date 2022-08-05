@@ -10,7 +10,7 @@ public class CharGenerator : MonoBehaviour
 
     // it will be english characters only for now
     private string alphabet = "AABCDEEFGHIIJKLMNOOPQRSTUUVWXYZ"; // letter stack to pick one of the element
-    //private string alphabet = "N"; // to control other functions rather than charGenerator
+    //private string alphabet = "M"; // to control other functions rather than charGenerator
 
     private string l; // it is a string converted from char that contains single random letter
     private GameObject[] letters; // all letters in LetterGround

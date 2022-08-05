@@ -69,39 +69,39 @@ public class SwipeController : MonoBehaviour
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j].transform.position = new Vector2(letters[(7 * i) + j].transform.position.x, (8 - i) * 155 + 132.7f);
-                //print(letters[(7 * i) + j].ToString() + " X: " + letters[(7 * i) + j].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j].transform.position.y.ToString());
+                letters[(7 * i) + j].transform.position = new Vector2(letters[(7 * i) + j].transform.position.x, (9 - i) * 155);
+                print(letters[(7 * i) + j].ToString() + " X: " + letters[(7 * i) + j].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j].transform.position.y.ToString());
             }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 56].transform.position = new Vector2(letters[7 * (i + 8) + j].transform.position.x, (i - 1) * -155 - 22.76f);
-                //print(letters[(7 * i) + j + 56].ToString() + " X: " + letters[(7 * i) + j + 56].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 56].transform.position.y.ToString());
+                letters[(7 * i) + j + 56].transform.position = new Vector2(letters[7 * (i + 8) + j].transform.position.x, (i - 1) * -155);
+                print(letters[(7 * i) + j + 56].ToString() + " X: " + letters[(7 * i) + j + 56].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 56].transform.position.y.ToString());
             }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 112].transform.position = new Vector2(letters[(7 * i) + j + 112].transform.position.x, i * 155 + 1529.74f);
-                //print(letters[(7 * i) + j + 112].ToString() + " X: " + letters[(7 * i) + j + 112].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 112].transform.position.y.ToString());
+                letters[(7 * i) + j + 112].transform.position = new Vector2(letters[(7 * i) + j + 112].transform.position.x, i * 155 + 1550);
+                print(letters[(7 * i) + j + 112].ToString() + " X: " + letters[(7 * i) + j + 112].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 112].transform.position.y.ToString());
             }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 168].transform.position = new Vector2(letters[(7 * i) + j + 168].transform.position.x, (8 - i) * 155 + 132.7f);
-                //print(letters[(7 * i) + j + 168].ToString() + " X: " + letters[(7 * i) + j + 168].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 168].transform.position.y.ToString());
+                letters[(7 * i) + j + 168].transform.position = new Vector2(letters[(7 * i) + j + 168].transform.position.x, (9 - i) * 155);
+                print(letters[(7 * i) + j + 168].ToString() + " X: " + letters[(7 * i) + j + 168].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 168].transform.position.y.ToString());
             }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 224].transform.position = new Vector2(letters[(7 * i) + j + 224].transform.position.x, (8 - i) * 155 + 132.7f);
-                //print(letters[(7 * i) + j + 224].ToString() + " X: " + letters[(7 * i) + j + 224].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 224].transform.position.y.ToString());
+                letters[(7 * i) + j + 224].transform.position = new Vector2(letters[(7 * i) + j + 224].transform.position.x, (9 - i) * 155);
+                print(letters[(7 * i) + j + 224].ToString() + " X: " + letters[(7 * i) + j + 224].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 224].transform.position.y.ToString());
             }
 
     }
     
-    ///*
+    /*
     void Update()
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -204,10 +204,10 @@ public class SwipeController : MonoBehaviour
                         //print(lettersY[k].ToString() +": "+lettersY[k].transform.position.y.ToString());
 
                         // to adjust swipe borders (letter transfer to other end)
-                        if (lettersY[k].transform.position.y > 2771.45f)
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -954.3f);
-                        else if (lettersY[k].transform.position.y < -1069.3f) // -955
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2616.45f);
+                        if (lettersY[k].transform.position.y > 2790)
+                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
+                        else if (lettersY[k].transform.position.y < -1085) // -955
+                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
                     }
                 }
             }
@@ -282,10 +282,10 @@ public class SwipeController : MonoBehaviour
 
                     // specifies the end letters when mousebuttonup occurs if they're out of border
                     lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);
-                    if (lettersY[k].transform.position.y > 2656.45f) // 2640
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -954.3f);
-                    else if (lettersY[k].transform.position.y < -1004.3f) // -925
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2616.45f);
+                    if (lettersY[k].transform.position.y > 2712.5f) // 2640
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
+                    else if (lettersY[k].transform.position.y < -1007.5f) // -925
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
                 }
 
                 // to check 
@@ -299,16 +299,17 @@ public class SwipeController : MonoBehaviour
         }
 
         inTable = false; // after loop finishes, inTable is false for the next loop
-    }   //*/
+    }   */
 
-    /*
+    ///*
     void Update()
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
         //                  FOR Mobile
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+        
         if (Input.GetTouch(0).phase == TouchPhase.Began) startPos = Input.touches[0].position;
-        if (startPos.x > 85 && startPos.x < 995 && startPos.y < 1380 && startPos.y > 285) inTable = true;
+        if (startPos.x > 20 && startPos.x < 1050 && startPos.y < 1650 && startPos.y > 450) inTable = true;
 
         if (Input.GetTouch(0).phase == TouchPhase.Began && inTable && !isFinished)
         {
@@ -345,11 +346,11 @@ public class SwipeController : MonoBehaviour
                 }
         }
 
-        //moveX = Input.GetAxis("Horizontal");
-        //moveY = Input.GetAxis("Vertical");
-
-        moveX = Input.GetTouch(0).deltaPosition.x;
-        moveY = Input.GetTouch(0).deltaPosition.y;
+        if (Input.touchCount > 0) // if statement is here; otherwise it throws an out of bounds error
+        {
+            moveX = Input.GetTouch(0).deltaPosition.x;
+            moveY = Input.GetTouch(0).deltaPosition.y;
+        }
 
         if (fingerDown == false && Input.touchCount > 0)
             fingerDown = true;
@@ -407,10 +408,10 @@ public class SwipeController : MonoBehaviour
                         //print(lettersY[k].ToString() +": "+lettersY[k].transform.position.y.ToString());
 
                         // to adjust swipe borders (letter transfer to other end)
-                        if (lettersY[k].transform.position.y > 2771.45f)
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -954.3f);
-                        else if (lettersY[k].transform.position.y < -1069.3f) // -955
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2616.45f);
+                        if (lettersY[k].transform.position.y > 2790)
+                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
+                        else if (lettersY[k].transform.position.y < -1085) // -955
+                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
                     }
                 }
             }
@@ -475,20 +476,20 @@ public class SwipeController : MonoBehaviour
             }
             if (!isXmove)
             {
-                surplusL = (lettersY[0].transform.position.y + 13) % 155; // 13.356 exactly
+                surplusL = (lettersY[0].transform.position.y) % 155; // 13.356 exactly
                 if (surplusL > 77.5f)
                     surplusL = -(155 - surplusL);
 
                 for (int k = 0; k < n2; k++)
                 {
-                    //print(lettersY[k].transform.position.y.ToString() + " " + lettersY[k].ToString());
+                    print(lettersY[k].transform.position.y.ToString() + " " + lettersY[k].ToString());
 
                     // specifies the end letters when mousebuttonup occurs if they're out of border
                     lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);
-                    if (lettersY[k].transform.position.y > 2656.45f) // 2640
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -954.3f);
-                    else if (lettersY[k].transform.position.y < -1004.3f) // -925
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2616.45f);
+                    if (lettersY[k].transform.position.y > 2712.5f) // 2640
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
+                    else if (lettersY[k].transform.position.y < -1007.5f) // -925
+                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
                 }
 
                 // to check 
@@ -502,5 +503,5 @@ public class SwipeController : MonoBehaviour
         }
 
         inTable = false; // after loop finishes, inTable is false for the next loop
-    }   */
+    }   //*/
 }

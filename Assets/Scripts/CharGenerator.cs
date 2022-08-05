@@ -10,7 +10,6 @@ public class CharGenerator : MonoBehaviour
 
     // it will be english characters only for now
     private string alphabet = "AABCDEEFGHIIJKLMNOOPQRSTUUVWXYZ"; // letter stack to pick one of the element
-    //private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // letter stack to pick one of the element
     //private string alphabet = "M"; // to control other functions rather than charGenerator
 
     private string l; // it is a string converted from char that contains single random letter
@@ -21,7 +20,7 @@ public class CharGenerator : MonoBehaviour
     {
         letters = GameObject.FindGameObjectsWithTag("Letter");
 
-        for (int i = 1; i < letters.Length+1; i++)
+        for (int i = 0; i < letters.Length; i++)
         {
             l = alphabet[Random.Range(0, alphabet.Length)].ToString(); // takes random char from alphabet
             letters[i].GetComponent<Text>().text = l; // assign that random char to l variable as string

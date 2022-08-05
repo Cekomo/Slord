@@ -38,8 +38,8 @@ public class ControlPanel : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButton(0)) // PC
-        if (Input.touchCount > 0) // Mobile
+        if (Input.GetMouseButton(0)) // PC
+        //if (Input.touchCount > 0) // Mobile
         {
             // decrease the score with each swipe operation leter by letter
             // ------------------------------------

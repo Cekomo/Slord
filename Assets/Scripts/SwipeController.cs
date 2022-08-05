@@ -68,27 +68,40 @@ public class SwipeController : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
+            {
                 letters[(7 * i) + j].transform.position = new Vector2(letters[(7 * i) + j].transform.position.x, (8 - i) * 155 + 132.7f);
+                //print(letters[(7 * i) + j].ToString() + " X: " + letters[(7 * i) + j].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j].transform.position.y.ToString());
+            }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
-                letters[(7 * i) + j + 56].transform.position = new Vector2(letters[7 * (i+8) + j].transform.position.x, (i-1) * -155 - 22.76f);
-
+            {
+                letters[(7 * i) + j + 56].transform.position = new Vector2(letters[7 * (i + 8) + j].transform.position.x, (i - 1) * -155 - 22.76f);
+                //print(letters[(7 * i) + j + 56].ToString() + " X: " + letters[(7 * i) + j + 56].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 56].transform.position.y.ToString());
+            }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
+            {
                 letters[(7 * i) + j + 112].transform.position = new Vector2(letters[(7 * i) + j + 112].transform.position.x, i * 155 + 1529.74f);
-
+                //print(letters[(7 * i) + j + 112].ToString() + " X: " + letters[(7 * i) + j + 112].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 112].transform.position.y.ToString());
+            }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
+            {
                 letters[(7 * i) + j + 168].transform.position = new Vector2(letters[(7 * i) + j + 168].transform.position.x, (8 - i) * 155 + 132.7f);
+                //print(letters[(7 * i) + j + 168].ToString() + " X: " + letters[(7 * i) + j + 168].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 168].transform.position.y.ToString());
+            }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
+            {
                 letters[(7 * i) + j + 224].transform.position = new Vector2(letters[(7 * i) + j + 224].transform.position.x, (8 - i) * 155 + 132.7f);
+                //print(letters[(7 * i) + j + 224].ToString() + " X: " + letters[(7 * i) + j + 224].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 224].transform.position.y.ToString());
+            }
 
     }
     
-    /*
+    ///*
     void Update()
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -286,9 +299,9 @@ public class SwipeController : MonoBehaviour
         }
 
         inTable = false; // after loop finishes, inTable is false for the next loop
-    }   */
+    }   //*/
 
-    ///*
+    /*
     void Update()
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -447,7 +460,7 @@ public class SwipeController : MonoBehaviour
 
                 for (int k = 0; k < n1; k++)
                 {
-                    print(lettersX[k].transform.position.x.ToString() + " " + lettersX[k].ToString());
+                    //print(lettersX[k].transform.position.x.ToString() + " " + lettersX[k].ToString());
                     // it brokes the editor
                     //while (lettersX[k].transform.position.x < lettersX[k].transform.position.x - surplusL)
                     //    lettersX[k].transform.Translate(-surplusL * Time.deltaTime, 0f, 0f);
@@ -489,5 +502,5 @@ public class SwipeController : MonoBehaviour
         }
 
         inTable = false; // after loop finishes, inTable is false for the next loop
-    }   //*/
+    }   */
 }

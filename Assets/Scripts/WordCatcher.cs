@@ -38,14 +38,14 @@ public class WordCatcher : MonoBehaviour
         // try to find a way to eliminate letters out of scope (tableLetters)
         tableLetters = GameObject.FindGameObjectsWithTag("Letter");
 
-        for (int i = 0; i < letters.Length; i++)
-            print(letters[i].ToString() + " X: " + letters[i].transform.position.x.ToString() + " Y: " + letters[i].transform.position.y.ToString());
+        //for (int i = 0; i < letters.Length; i++)
+        //    print(letters[i].ToString() + " X: " + letters[i].transform.position.x.ToString() + " Y: " + letters[i].transform.position.y.ToString());
     }
 
     void Update()
     {
-        //if (Input.GetMouseButtonUp(0) && !swipeController.isFinished) // PC check if it causes any problem
-        if (Input.GetTouch(0).phase == TouchPhase.Ended && !swipeController.isFinished)  // Mobile
+        if (Input.GetMouseButtonUp(0) && !swipeController.isFinished) // PC check if it causes any problem
+        //if (Input.GetTouch(0).phase == TouchPhase.Ended && !swipeController.isFinished)  // Mobile
         {
             k = 0;
             for (int i = 0; i < letters.Length; i++)
@@ -83,12 +83,12 @@ public class WordCatcher : MonoBehaviour
                         letterPosX = tableLetters[j].transform.position;
 
                         // to determine if the next word is the one or not by looking x/y-axis
-                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x + 105 && letterPosX.x > letterPos.x + 115 && letterPos.y + 4 > letterPosX.y && letterPos.y - 4 < letterPosX.y)
+                        if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.x < letterPos.x + 95 && letterPosX.x > letterPos.x + 125 && letterPos.y + 10 > letterPosX.y && letterPos.y - 10 < letterPosX.y)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
                         }
-                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 120 && letterPosX.y < letterPos.y - 110 && letterPos.x + 4 > letterPosX.x && letterPos.x - 4 < letterPosX.x)
+                        else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 125 && letterPosX.y < letterPos.y - 95 && letterPos.x + 10 > letterPosX.x && letterPos.x - 10 < letterPosX.x)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;

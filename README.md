@@ -10,10 +10,11 @@ Swipe the letter through X-axis or Y-axis to form the word. The next letter that
 
 ![howto3](https://user-images.githubusercontent.com/79690427/183223609-b45e1005-8528-412c-ae4f-f00c9bfed8de.png)
 
-When the word is corectly formed, you can press right-bottom button to level up.
+When the word is correctly formed, you can press right-bottom button to level up.
 
 # Bugs
 - Sometimes the word does not place the intended tile but the previous one after sliding it. (Not a high priority)
+- Due to the swipe speed, letters' position diverges slightly. (Not a high priority)
 - Especially there is a required letter inside matched word, the algorithm may not understand the correct word. Try to keep away the surplus letters that the word includes.
 
 

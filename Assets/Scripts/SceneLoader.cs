@@ -30,11 +30,11 @@ public class SceneLoader : MonoBehaviour
     void Awake()
     {
         // to adjust the fps as 60
-        //QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
 
         // to reset the level
-        //PlayerPrefs.SetInt("ActiveScene", 1);
+        //PlayerPrefs.SetInt("ActiveScene", 23);
         //PlayerPrefs.Save();
 
         // the place allows maximum of 9 letters for word (not wide letters included)

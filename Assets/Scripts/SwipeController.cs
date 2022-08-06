@@ -69,34 +69,34 @@ public class SwipeController : MonoBehaviour
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j].transform.position = new Vector2(letters[(7 * i) + j].transform.position.x, (9 - i) * 155);
-                print(letters[(7 * i) + j].ToString() + " X: " + letters[(7 * i) + j].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j].transform.position.y.ToString());
+                letters[(7 * i) + j].transform.position = new Vector3(j * 149.85f + 90.45f, (9 - i) * 155, 100);
+                //print(letters[(7 * i) + j].ToString() + " X: " + letters[(7 * i) + j].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j].transform.position.y.ToString());
             }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 56].transform.position = new Vector2(letters[7 * (i + 8) + j].transform.position.x, (i - 1) * -155);
-                print(letters[(7 * i) + j + 56].ToString() + " X: " + letters[(7 * i) + j + 56].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 56].transform.position.y.ToString());
+                letters[(7 * i) + j + 56].transform.position = new Vector3(j * 149.85f + 90.45f, (i - 1) * -155, 100);
+                //print(letters[(7 * i) + j + 56].ToString() + " X: " + letters[(7 * i) + j + 56].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 56].transform.position.y.ToString());
             }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 112].transform.position = new Vector2(letters[(7 * i) + j + 112].transform.position.x, i * 155 + 1550);
-                print(letters[(7 * i) + j + 112].ToString() + " X: " + letters[(7 * i) + j + 112].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 112].transform.position.y.ToString());
+                letters[(7 * i) + j + 112].transform.position = new Vector3(j * 149.85f + 90.45f, i * 155 + 1550, 100);
+                //print(letters[(7 * i) + j + 112].ToString() + " X: " + letters[(7 * i) + j + 112].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 112].transform.position.y.ToString());
             }
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 168].transform.position = new Vector2(letters[(7 * i) + j + 168].transform.position.x, (9 - i) * 155);
-                print(letters[(7 * i) + j + 168].ToString() + " X: " + letters[(7 * i) + j + 168].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 168].transform.position.y.ToString());
+                letters[(7 * i) + j + 168].transform.position = new Vector3(j * 149.85f + 1139.4f, (9 - i) * 155, 100);
+                //print(letters[(7 * i) + j + 168].ToString() + " X: " + letters[(7 * i) + j + 168].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 168].transform.position.y.ToString());
             }
 
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 7; j++)
             {
-                letters[(7 * i) + j + 224].transform.position = new Vector2(letters[(7 * i) + j + 224].transform.position.x, (9 - i) * 155);
-                print(letters[(7 * i) + j + 224].ToString() + " X: " + letters[(7 * i) + j + 224].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 224].transform.position.y.ToString());
+                letters[(7 * i) + j + 224].transform.position = new Vector3(j * -149.85f - 59.4f, (9 - i) * 155, 100);
+                //print(letters[(7 * i) + j + 224].ToString() + " X: " + letters[(7 * i) + j + 224].transform.position.x.ToString() + " Y: " + letters[(7 * i) + j + 224].transform.position.y.ToString());
             }
 
     }

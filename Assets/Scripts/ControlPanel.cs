@@ -23,9 +23,6 @@ public class ControlPanel : MonoBehaviour
     {
         scoreBool = true;
 
-        // each interface represents specific text field or button
-        //interfaces = GameObject.FindGameObjectsWithTag("InterfaceText");
-        // interfaces[0] = TheWordBar, interfaces[1] = Score, interfaces[2] = LevelNumber
         wordBar.GetComponent<Text>().text = sceneLoader.theWord;
         SetLevel(sceneLoader.activeScene);
 

@@ -482,7 +482,7 @@ public class SwipeController : MonoBehaviour
 
                 for (int k = 0; k < n2; k++)
                 {
-                    print(lettersY[k].transform.position.y.ToString() + " " + lettersY[k].ToString());
+                    //print(lettersY[k].transform.position.y.ToString() + " " + lettersY[k].ToString());
 
                     // specifies the end letters when mousebuttonup occurs if they're out of border
                     lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);

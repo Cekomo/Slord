@@ -369,12 +369,12 @@ public class SwipeController : MonoBehaviour
                     for (int k = 0; (k < n1); k++) // needs to be recoded
                     {
                         // to adjust the swipe speed
-                        if (moveX * laneSpeed * Time.deltaTime <= 4.5f && moveX * laneSpeed * Time.deltaTime >= -4.5f)
+                        if (moveX * laneSpeed * Time.deltaTime <= 6f && moveX * laneSpeed * Time.deltaTime >= -6f)
                             lettersX[k].transform.Translate(moveX * laneSpeed * Time.deltaTime, 0f, 0f);
-                        else if (moveX * laneSpeed * Time.deltaTime > 4.5f)
-                            lettersX[k].transform.Translate(4.5f, 0f, 0f);
+                        else if (moveX * laneSpeed * Time.deltaTime > 6f)
+                            lettersX[k].transform.Translate(6f, 0f, 0f);
                         else
-                            lettersX[k].transform.Translate(-4.5f, 0f, 0f);
+                            lettersX[k].transform.Translate(-6f, 0f, 0f);
 
                         //print(moveY * laneSpeed * Time.deltaTime);
                         //print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.x.ToString());
@@ -398,12 +398,12 @@ public class SwipeController : MonoBehaviour
                     for (int k = 0; (k < n2); k++) // needs to be recoded                  
                     {
                         // to adjust the swipe speed
-                        if (moveY * laneSpeed * Time.deltaTime <= 4.5f && moveY * laneSpeed * Time.deltaTime >= -4.5f)
+                        if (moveY * laneSpeed * Time.deltaTime <= 6f && moveY * laneSpeed * Time.deltaTime >= -6f)
                             lettersY[k].transform.Translate(0f, moveY * laneSpeed * Time.deltaTime, 0f);
-                        else if (moveY * laneSpeed * Time.deltaTime >= 4.5f)
-                            lettersY[k].transform.Translate(0f, 4.5f, 0f);
+                        else if (moveY * laneSpeed * Time.deltaTime >= 6f)
+                            lettersY[k].transform.Translate(0f, 6f, 0f);
                         else
-                            lettersY[k].transform.Translate(0f, -4.5f, 0f);
+                            lettersY[k].transform.Translate(0f, -6f, 0f);
 
                         //print(lettersY[k].ToString() +": "+lettersY[k].transform.position.y.ToString());
 

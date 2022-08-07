@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour
         "TISSUE", "JOCKEY", "GOSSIP", "CHANGE", "DOLLAR", "DOUBLE", "FAMILY", "UPDATE", "COLONY",
         "RECORD", "SODIUM", "THESIS", "LIKELY", "SYMBOL", "SLEEVE", "REWARD", "BOTTOM", "MIRROR", 
         "EXCLUDE", "RETREAT", "STUMBLE", "PYRAMID", "CRUSADE", "MONSTER", "PENALTY", "THIRSTY",
-        "**VICTORY**"
+        "*VICTORY*"
     };
 
     [HideInInspector] public string theWord; // the word should be matched to pass the level determined by level index

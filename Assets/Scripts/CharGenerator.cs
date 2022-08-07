@@ -15,7 +15,7 @@ public class CharGenerator : MonoBehaviour
 
     private string l; // it is a string converted from char that contains single random letter
     private GameObject[] letters; // all letters in LetterGround
-    private int k = 0;
+    //private int k = 0;
 
     void Awake() // random char generation should be inside Awake() function due to the priority 
     {
@@ -25,8 +25,7 @@ public class CharGenerator : MonoBehaviour
         {
             l = alphabet[Random.Range(0, alphabet.Length)].ToString(); // takes random char from alphabet
             letters[i].GetComponent<Text>().text = l; // assign that random char to l variable as string
-                                                      ////print(l);
-
+            //print(l);
 
             // to control the coordinates and text condition of letters
             //letters[i].GetComponent<Text>().text = alphabet[k].ToString();

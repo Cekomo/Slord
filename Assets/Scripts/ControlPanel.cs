@@ -13,7 +13,8 @@ public class ControlPanel : MonoBehaviour
     public GameObject wordBar; // represents text of word bar
     public GameObject scoreBar; // represents text of score board
     public GameObject levelBar; // represents level of the game
-    
+    public GameObject wordMatched; // represents popping up of word matched
+
     private int zeroAdd; // to add zero for each missing number on score board
     private float floatScore; // assign the score as float from string
     private int totalScore; // total score gaining from each level
@@ -21,6 +22,7 @@ public class ControlPanel : MonoBehaviour
 
     void Start()
     {
+        wordMatched.SetActive(false);
         scoreBool = true;
 
         wordBar.GetComponent<Text>().text = sceneLoader.theWord;
@@ -67,6 +69,8 @@ public class ControlPanel : MonoBehaviour
 
             scoreBool = false;
             ScoreSetter(); // to adjust the score board 
+
+            wordMatched.SetActive(true);
         }
     }
 

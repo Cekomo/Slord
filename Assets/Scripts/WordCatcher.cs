@@ -23,6 +23,8 @@ public class WordCatcher : MonoBehaviour
     //private string theWord1; // the word needed to be found in table
     private string desiredWord1; // the word that is constructed by user
     private string tempWord1; // temp for checking created word by sliding
+    //private string tempWord2; // temp for checking if the actual word and formed one are equal
+    private int l; // to compare length of the actual word and formed one 
 
     private GameObject nextLetterX; // next letter of the spotted letter in X-axis
     private GameObject nextLetterY; // next letter of the spotted letter in Y-axis
@@ -30,6 +32,8 @@ public class WordCatcher : MonoBehaviour
     private int k; // increment to add elements in tableLetters array
     private int t; // increment to add elements in text letter array
     private int p; //to determine index of a word in for 
+
+    //private bool isMatched = false; // to paint the matched word
 
     void Start()
     {
@@ -76,6 +80,10 @@ public class WordCatcher : MonoBehaviour
             for (int k = 0; k < t; k++)
                 if (tableLetters[k].GetComponent<Text>().text[0] == sceneLoader.theWord[0])
                 {
+                    // for coloring the matching word
+                    //if (isMatched) tableLetters[k].GetComponent<Text>().color = Color.green;
+                    //else tableLetters[k].GetComponent<Text>().color = Color.black;
+
                     letterPos = tableLetters[k].transform.position;
                     p = 1;
                     for (int j = 0; j < t; j++)
@@ -87,23 +95,47 @@ public class WordCatcher : MonoBehaviour
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
+                            //if (isMatched) tableLetters[j].GetComponent<Text>().color = Color.green;
+                            //else tableLetters[j].GetComponent<Text>().color = Color.black;
                         }
                         else if (tableLetters[j].GetComponent<Text>().text[0] == sceneLoader.theWord[p] && letterPosX.y > letterPos.y - 160 && letterPosX.y < letterPos.y - 150 && letterPos.x + 5 > letterPosX.x && letterPos.x - 5 < letterPosX.x)
                         {
                             desiredWord1 += sceneLoader.theWord[p].ToString();
                             letterPos = tableLetters[j].transform.position;
+                            //if (isMatched) tableLetters[j].GetComponent<Text>().color = Color.green;
+                            //else tableLetters[j].GetComponent<Text>().color = Color.black;
                         }
                         // if statement is checking for next needed letter in the respective axis
                         if (j == t - 1 && p < sceneLoader.theWord.Length - 1) { p++; j = 0; }
                     }
                 }
 
+            //if (desiredWord1.Length <= sceneLoader.theWord.Length)
+            //    l = desiredWord1.Length;
+            //else
+            //    l = sceneLoader.theWord.Length;
+
             tempWord1 = desiredWord1;
-            print(tempWord1);
             desiredWord1 = "";
             for (int i = 0; i < sceneLoader.theWord.Length; i++)
                 if (tempWord1.Length >= sceneLoader.theWord.Length) // this statement is for avoiding outofrange exception
                     desiredWord1 += tempWord1[i];
+
+            tempWord1 = "";
+            // below codes to color the object when matched
+            //tempWord2 = "";
+            //for (int i = 0; i < l-1; i++)
+            //{
+            //    print(desiredWord1[i] + " " + sceneLoader.theWord[i]);
+            //    tempWord1 += desiredWord1[i]; // tempWord1[i] = desiredWord1[i];
+            //    tempWord2 += sceneLoader.theWord[i]; // tempWord2[i] = sceneLoader.theWord[i];
+            //}
+
+            //print(tempWord1.ToString() + " " + tempWord2.ToString() +" yo");
+            //if (tempWord1 == tempWord2)
+            //    isMatched = true;
+            //else 
+            //    isMatched = false;
 
             if (desiredWord1 == sceneLoader.theWord)
             {

@@ -125,6 +125,9 @@ public class ControlPanel : MonoBehaviour
     {
         if (!swipeController.isFinished)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        totalScore = PlayerPrefs.GetInt("TotalScore");
+        PlayerPrefs.SetInt("TotalScore", totalScore - 75);
     }
 
     public void Exit()

@@ -13,8 +13,18 @@ public class ControlPanel : MonoBehaviour
     private GameObject[] letters;
     private GameObject[] tableLetters;
 
+    private GameObject[] upperReflector; // reflectors placed upper side
+    private GameObject[] lowerReflector; // reflectors placed lower side
+    private GameObject[] leftReflector; // reflectors placed left side
+    private GameObject[] rightReflector; // reflectors placed right side
+
+    private float timePassed; // clock to fade the hint reflector
+
+    private Vector2 letterPos; // to determine the position of letter
+
     private Vector2 startPos;
     private bool isFound; // checks if specified letter is found in letters array
+    private bool startFading = false; // to initiate fading process
 
     public GameObject wordBar; // represents text of word bar
     public GameObject scoreBar; // represents text of score board
@@ -33,6 +43,11 @@ public class ControlPanel : MonoBehaviour
     void Start()
     {
         tableLetters = GameObject.FindGameObjectsWithTag("Letter");
+        
+        upperReflector = GameObject.FindGameObjectsWithTag("UpperReflector");
+        lowerReflector = GameObject.FindGameObjectsWithTag("LowerReflector");
+        leftReflector = GameObject.FindGameObjectsWithTag("LeftReflector");
+        rightReflector = GameObject.FindGameObjectsWithTag("RightReflector");
 
         wordMatched.SetActive(false);
         scoreBool = true;
@@ -84,6 +99,26 @@ public class ControlPanel : MonoBehaviour
 
             wordMatched.SetActive(true);
         }
+
+        if (startFading)
+        {
+            timePassed += Time.deltaTime;
+            if (timePassed > 8f)
+            {
+                for (int i = 0; i < upperReflector.Length; i++)
+                {
+                    upperReflector[i].GetComponent<Image>().color = Color.black;
+                    lowerReflector[i].GetComponent<Image>().color = Color.black;
+                }
+                for (int i = 0; i < leftReflector.Length; i++)
+                {
+                    leftReflector[i].GetComponent<Image>().color = Color.black;
+                    rightReflector[i].GetComponent<Image>().color = Color.black;
+                }
+                startFading = false;
+                timePassed = 0f;
+            }
+        }
     }
 
     public void ResetTheGame()
@@ -114,38 +149,91 @@ public class ControlPanel : MonoBehaviour
 
     public void HintLetter()
     {
-        letters = GameObject.FindGameObjectsWithTag("Letter");
-
-        // to receive the needed letters inside the table
-        tableWord = "";
-        for (int j = 0; j < sceneLoader.theWord.Length; j++)
+        if (!startFading) // boolean is used for activity of hint button as well as fading mechanism
         {
-            isFound = true; i = 0;
-            while (isFound && i < letters.Length)
+
+            letters = GameObject.FindGameObjectsWithTag("Letter");
+
+            // to receive the needed letters inside the table
+            tableWord = "";
+            for (int j = 0; j < sceneLoader.theWord.Length; j++)
             {
-                startPos = letters[i].transform.position;
-                if (letters[i].GetComponent<Text>().text == sceneLoader.theWord[j].ToString() && startPos.x > 20 && startPos.x < 1050 && startPos.y > 295 && startPos.y < 1495)
+                isFound = true; i = 0;
+                while (isFound && i < letters.Length)
                 {
-                    tableWord += letters[i].GetComponent<Text>().text;
-                    isFound = false; 
+                    startPos = letters[i].transform.position;
+                    if (letters[i].GetComponent<Text>().text == sceneLoader.theWord[j].ToString() && startPos.x > 20 && startPos.x < 1050 && startPos.y > 295 && startPos.y < 1495)
+                    {
+                        tableWord += letters[i].GetComponent<Text>().text;
+                        isFound = false;
+                    }
+                    i++;
                 }
+            }
+            print(tableWord);
+
+            tempWord = "";
+            for (int i = 0; i < sceneLoader.theWord.Length; i++)
+            {
+                isFound = true;
+                for (int j = 0; j < tableWord.Length; j++)
+                    if (sceneLoader.theWord[i] == tableWord[j])
+                        isFound = false;
+                if (isFound)
+                    tempWord += sceneLoader.theWord[i];
+            }
+            print(tempWord);
+
+            if (tempWord.Length > 0) // decrease the total point by 75 for each hint 
+            {
+                totalScore = PlayerPrefs.GetInt("TotalScore");
+                PlayerPrefs.SetInt("TotalScore", totalScore - 75);
+                //print(totalScore);
+            }
+
+            i = 0; isFound = false; // check if isFound here brokes anything
+            while (i < tempWord.Length && !isFound)
+            {
+                for (int j = 0; j < letters.Length; j++)
+                    if (tempWord[i].ToString() == letters[j].GetComponent<Text>().text)
+                    {
+                        letterPos = letters[j].transform.position;
+
+                        if (letterPos.x > 990)
+                            for (int k = 0; k < rightReflector.Length; k++)
+                            {
+                                if (letterPos.y < (k * -155 + 1395) + 10 && letterPos.y > (k * -155 + 1395) - 10)
+                                    rightReflector[k].GetComponent<Image>().color = Color.yellow;
+                                isFound = true;
+                            }
+                        else if (letterPos.x < 90)
+                            for (int k = 0; k < leftReflector.Length; k++)
+                            {
+                                if (letterPos.y < (k * -155 + 1395) + 10 && letterPos.y > (k * -155 + 1395) - 10)
+                                    leftReflector[k].GetComponent<Image>().color = Color.yellow;
+                                isFound = true;
+                            }
+                        else if (letterPos.y > 1395)
+                            for (int k = 0; k < upperReflector.Length; k++)
+                            {
+                                if (letterPos.x < (k * 149.85f + 90.45f) + 10 && letterPos.x > (k * 149.85f + 90.45f) - 10)
+                                    upperReflector[k].GetComponent<Image>().color = Color.yellow;
+                                isFound = true;
+                            }
+                        else if (letterPos.y < 310)
+                            for (int k = 0; k < lowerReflector.Length; k++)
+                            {
+                                if (letterPos.x < (k * 149.85f + 90.45f) + 10 && letterPos.x > (k * 149.85f + 90.45f) - 10)
+                                    lowerReflector[k].GetComponent<Image>().color = Color.yellow;
+                                isFound = true;
+                            }
+                        if (isFound)
+                            break;
+                    }
                 i++;
             }
+            startFading = true;
         }
-        print(tableWord);
-
-        tempWord = "";
-        for (int i = 0; i < sceneLoader.theWord.Length; i++)
-        {
-            isFound = true;
-            for (int j = 0; j < tableWord.Length; j++)
-                if (sceneLoader.theWord[i] == tableWord[j])
-                    isFound = false;
-            if (isFound)
-                tempWord += sceneLoader.theWord[i];
-        }
-
-        print(tempWord);
-            
     }
+    
 }

@@ -7,6 +7,10 @@ TagManager:
   - Letter
   - LetterAxis
   - InterfaceText
+  - UpperReflector
+  - LowerReflector
+  - LeftReflector
+  - RightReflector
   layers:
   - Default
   - TransparentFX

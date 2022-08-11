@@ -105,17 +105,32 @@ public class WordCatcher : MonoBehaviour
                 }
             }
 
+            /* 
+             G  O  S  S  I  P 
+             0  1  9 16 17 24
+            32 33 34 41 48 49
+            23 30 37 38 39 47
+             */
+
             tempWord1 = "";
             for (int i = 0; i < tableLetters.Length; i++)
             {
+                p = 1; q = 1; // to determine the next letter's position on x/y axis 
                 if (tableLetters[i].GetComponent<Text>().text[0] == sceneLoader.theWord[0])
                 {
                     for (int j = 1; j < sceneLoader.theWord.Length; j++)
                     {
-                        if (tableLetters[i + j].GetComponent<Text>().text[0] == sceneLoader.theWord[j])
+                        if (tableLetters[i + p + (q-1)*7].GetComponent<Text>().text[0] == sceneLoader.theWord[j])
+                        { // detect the next matched letter on x-axis
                             tempWord1 += sceneLoader.theWord[j];
-                        else if (tableLetters[i + j*7].GetComponent<Text>().text[0] == sceneLoader.theWord[j])
+                            p += 1;
+
+                        }
+                        else if (tableLetters[i + p - 1 + q*7].GetComponent<Text>().text[0] == sceneLoader.theWord[j])
+                        { // detect the next matched letter on y-axis
                             tempWord1 += sceneLoader.theWord[j];
+                            q += 1;
+                        }
                         else 
                             break;
                     }
@@ -123,7 +138,7 @@ public class WordCatcher : MonoBehaviour
             }
 
             desiredWord1 = sceneLoader.theWord[0].ToString();
-            for (int i = 0; i < sceneLoader.theWord.Length - 1; i++)
+            for (int i = 0; i < tempWord1.Length; i++) // tempword1 -> sceneLoader.theWord
                 desiredWord1 += tempWord1[i]; // index bound error fix it
 
             print(desiredWord1);

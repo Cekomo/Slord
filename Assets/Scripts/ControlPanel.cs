@@ -173,7 +173,7 @@ public class ControlPanel : MonoBehaviour
                     i++;
                 }
             }
-            print(tableWord);
+            //print(tableWord);
 
             tempWord = "";
             for (int i = 0; i < sceneLoader.theWord.Length; i++)
@@ -185,7 +185,7 @@ public class ControlPanel : MonoBehaviour
                 if (isFound)
                     tempWord += sceneLoader.theWord[i];
             }
-            print(tempWord);
+            //print(tempWord);
 
             if (tempWord.Length > 0) // decrease the total point by 75 for each hint 
             {

@@ -39,6 +39,7 @@ public class ControlPanel : MonoBehaviour
     private string tableWord; // the letters needed to match the word
     private int i; // temprorary variable representing index
     private string tempWord; // temporary word to detetct missing letters on the table
+    private char[] neededLetters; // letters that can be found with hint button
 
     void Start()
     {
@@ -58,6 +59,15 @@ public class ControlPanel : MonoBehaviour
         // to set the initial score shown in board
         scoreBar.GetComponent<Text>().text = (100 * sceneLoader.theWord.Length).ToString(); // to determine interface score      
         ScoreSetter();
+
+        char[] neededLetters = new char[sceneLoader.theWord.Length-1];
+
+        for (int i = 0; i < neededLetters.Length; i++)
+        {
+            neededLetters[i] = '.';
+            print(neededLetters[i]);
+        }
+        
 
         // for experimental purposes
         //PlayerPrefs.SetInt("TotalScore", 0);
@@ -168,28 +178,53 @@ public class ControlPanel : MonoBehaviour
                     if (letters[i].GetComponent<Text>().text == sceneLoader.theWord[j].ToString() && startPos.x > 20 && startPos.x < 1050 && startPos.y > 295 && startPos.y < 1495)
                     {
                         tableWord += letters[i].GetComponent<Text>().text;
+                        letters[i].GetComponent<Text>().text += "."; // to distinguish the letters which are repreated
                         isFound = false;
                     }
                     i++;
                 }
             }
-            //print(tableWord);
+            print(tableWord);
 
-            tempWord = "";
-            for (int i = 0; i < sceneLoader.theWord.Length; i++)
+            i = 0; // to represent index of char array 
+            for (int j = 0; j < letters.Length; j++)
             {
-                isFound = true;
-                for (int j = 0; j < tableWord.Length; j++)
-                    if (sceneLoader.theWord[i] == tableWord[j])
-                        isFound = false;
-                if (isFound)
-                    tempWord += sceneLoader.theWord[i];
+                if (letters[j].GetComponent<Text>().text.Length == 2) // to prevent OutOfRange error
+                    if (letters[j].GetComponent<Text>().text[1].ToString() == ".") // revert the text of letters by removing the dot
+                    {
+                        letters[j].GetComponent<Text>().text = letters[j].GetComponent<Text>().text[0].ToString();
+                        neededLetters[i] = letters[j].GetComponent<Text>().text[0];
+                        i++;
+                    }
             }
+
+            for (int j = 0; j < sceneLoader.theWord.Length; j++)
+            {
+                for (int i = 0; i < neededLetters.Length; i++)
+                {
+                    if (neededLetters[i] == sceneLoader.theWord[j])
+                        neededLetters[i] = '.';
+                }
+            }
+
+            for (int i = 0; i < neededLetters.Length; i++)
+                print(neededLetters[i]);
+
+            //tempWord = "";
+            //for (int i = 0; i < sceneLoader.theWord.Length; i++)
+            //{
+            //    isFound = true;
+            //    for (int j = 0; j < tableWord.Length; j++)
+            //        if (sceneLoader.theWord[i] == tableWord[j])
+            //            isFound = false;
+            //    if (isFound)
+            //        tempWord += sceneLoader.theWord[i];
+            //}
             //print(tempWord);
 
             if (tempWord.Length > 0) // decrease the total point by 75 for each hint 
             {
-                totalScore = PlayerPrefs.GetInt("TotalScore");
+                totalScore = PlayerPrefs.GetInt("TotalScore"); 
                 PlayerPrefs.SetInt("TotalScore", totalScore - 75);
                 //print(totalScore);
             }

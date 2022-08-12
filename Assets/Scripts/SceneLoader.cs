@@ -16,7 +16,7 @@ public class SceneLoader : MonoBehaviour
         "DIET", "POUR", "BIND", "ARMY", "OVEN", "SOUL", "WHIP", "DOME", "TRIP", "SIGH", "HERO",
         "CHASE", "ROUTE", "FRAME", "ASSET", "HONOR", "STEAK", "SPITE", "GUESS", "RANGE", "FRESH",
         "TRUNK", "EJECT", "STUFF", "SHOCK", "SWARM", "PATCH", "PLUCK", "STYLE", "WITCH", "THICK",
-        "TISSUE", "JOCKEY", "GOSSIP", "CHANGE", "DOLLAR", "DOUBLE", "FAMILY", "UPDATE", "COLONY",
+        "TISSUE", "JOCKEY", "GOSSIP", "CHANGE", "DOLLAR", "DOUBLE", "FAMILY", "UPPDATE", "COLONY",
         "RECORD", "SODIUM", "THESIS", "LIKELY", "SYMBOL", "SLEEVE", "REWARD", "BOTTOM", "MIRROR", 
         "EXCLUDE", "RETREAT", "STUMBLE", "PYRAMID", "CRUSADE", "MONSTER", "PENALTY", "THIRSTY",
         "*VICTORY*"

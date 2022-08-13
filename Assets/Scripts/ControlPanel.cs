@@ -37,9 +37,9 @@ public class ControlPanel : MonoBehaviour
     private bool scoreBool; // boolean to block multiple additions to the total score
 
     private string tableWord; // the letters needed to match the word
-    private int i; // temprorary variable representing index
+    private int i; // temporary variable representing index
     private string tempWord; // temporary word to detetct missing letters on the table
-    private char[] neededLetters; // letters that can be found with hint button
+    private bool isRepeated; // to determine if any letter is repeated in the word
 
     void Start()
     {
@@ -58,16 +58,7 @@ public class ControlPanel : MonoBehaviour
 
         // to set the initial score shown in board
         scoreBar.GetComponent<Text>().text = (100 * sceneLoader.theWord.Length).ToString(); // to determine interface score      
-        ScoreSetter();
-
-        char[] neededLetters = new char[sceneLoader.theWord.Length-1];
-
-        for (int i = 0; i < neededLetters.Length; i++)
-        {
-            neededLetters[i] = '.';
-            print(neededLetters[i]);
-        }
-        
+        ScoreSetter();      
 
         // for experimental purposes
         //PlayerPrefs.SetInt("TotalScore", 0);
@@ -193,33 +184,30 @@ public class ControlPanel : MonoBehaviour
                     if (letters[j].GetComponent<Text>().text[1].ToString() == ".") // revert the text of letters by removing the dot
                     {
                         letters[j].GetComponent<Text>().text = letters[j].GetComponent<Text>().text[0].ToString();
-                        neededLetters[i] = letters[j].GetComponent<Text>().text[0];
-                        i++;
                     }
             }
 
+            // this for loop may need some work 
+            // it is responsible from detecting the word letters not present on the table
+            tempWord = ""; 
             for (int j = 0; j < sceneLoader.theWord.Length; j++)
             {
-                for (int i = 0; i < neededLetters.Length; i++)
+                i = 0;
+                for (int t = 0; t < sceneLoader.theWord.Length; t++)
+                    if (t != j && sceneLoader.theWord[j] == sceneLoader.theWord[t])
+                        i++;
+                
+                isFound = true;
+                for (int k = 0; k < tableWord.Length; k++)
                 {
-                    if (neededLetters[i] == sceneLoader.theWord[j])
-                        neededLetters[i] = '.';
+                    if (sceneLoader.theWord[j] == tableWord[k] && i <= 0)
+                        isFound = false;
+                    else if (sceneLoader.theWord[j] == tableWord[k] && i > 0)
+                        i--;
                 }
+                if (isFound)
+                    tempWord += sceneLoader.theWord[j];
             }
-
-            for (int i = 0; i < neededLetters.Length; i++)
-                print(neededLetters[i]);
-
-            //tempWord = "";
-            //for (int i = 0; i < sceneLoader.theWord.Length; i++)
-            //{
-            //    isFound = true;
-            //    for (int j = 0; j < tableWord.Length; j++)
-            //        if (sceneLoader.theWord[i] == tableWord[j])
-            //            isFound = false;
-            //    if (isFound)
-            //        tempWord += sceneLoader.theWord[i];
-            //}
             //print(tempWord);
 
             if (tempWord.Length > 0) // decrease the total point by 75 for each hint 
@@ -229,7 +217,8 @@ public class ControlPanel : MonoBehaviour
                 //print(totalScore);
             }
 
-            i = 0; isFound = false; // check if isFound here brokes anything
+            // to light the respective area of black area with blue by considering the position of missing letter
+            i = 0; isFound = false; 
             while (i < tempWord.Length && !isFound)
             {
                 for (int j = 0; j < letters.Length; j++)

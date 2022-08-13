@@ -58,7 +58,7 @@ public class ControlPanel : MonoBehaviour
 
         // to set the initial score shown in board
         scoreBar.GetComponent<Text>().text = (100 * sceneLoader.theWord.Length).ToString(); // to determine interface score      
-        ScoreSetter();      
+        ScoreSetter();
 
         // for experimental purposes
         //PlayerPrefs.SetInt("TotalScore", 0);
@@ -155,7 +155,7 @@ public class ControlPanel : MonoBehaviour
     {
         if (!startFading) // boolean is used for activity of hint button as well as fading mechanism
         {
-
+            
             letters = GameObject.FindGameObjectsWithTag("Letter");
 
             // to receive the needed letters inside the table

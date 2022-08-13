@@ -34,7 +34,7 @@ public class SceneLoader : MonoBehaviour
         Application.targetFrameRate = 60;
 
         // to reset the level
-        //PlayerPrefs.SetInt("ActiveScene", 25);
+        //PlayerPrefs.SetInt("ActiveScene", 50);
         //PlayerPrefs.Save();
 
         // the place allows maximum of 9 letters for word (not wide letters included)

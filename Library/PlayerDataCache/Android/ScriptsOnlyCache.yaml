@@ -633,7 +633,7 @@ ScriptsOnlyBuild:
     className: FabrikSolver2D
   - hash:
       serializedVersion: 2
-      Hash: f90bca1e053ef5e9dbbce9fee3708b46
+      Hash: 88b92775a00676b3c1b2f609f17b4f3d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SwipeController

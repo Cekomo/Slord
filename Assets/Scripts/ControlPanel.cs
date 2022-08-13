@@ -73,8 +73,10 @@ public class ControlPanel : MonoBehaviour
             // decrease the score with each swipe operation leter by letter
             // ------------------------------------
             floatScore = float.Parse(scoreBar.GetComponent<Text>().text);
-            if (floatScore >= 20 * sceneLoader.theWord.Length) // it has problem (not stop at %20 percent)
+            if (floatScore > 20 * sceneLoader.theWord.Length) 
                 floatScore = floatScore - swipeController.pointDecrement;
+            else if (floatScore < 20 * sceneLoader.theWord.Length)
+                floatScore = 20 * sceneLoader.theWord.Length;
 
             swipeController.pointDecrement = 0;
             scoreBar.GetComponent<Text>().text = floatScore.ToString();
@@ -104,7 +106,7 @@ public class ControlPanel : MonoBehaviour
         if (startFading)
         {
             timePassed += Time.deltaTime;
-            if (timePassed > 8f)
+            if (timePassed > 6f)
             {
                 for (int i = 0; i < upperReflector.Length; i++)
                 {
@@ -138,7 +140,7 @@ public class ControlPanel : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        if (level < 10) // add "0" to make the level more convenient in the screen
+        if (level+1 < 10) // add "0" to make the level more convenient in the screen
             levelBar.GetComponent<Text>().text = "Level 0" + (level + 1).ToString();
         else
             levelBar.GetComponent<Text>().text = "Level " + (level + 1).ToString();
@@ -208,13 +210,17 @@ public class ControlPanel : MonoBehaviour
                 if (isFound)
                     tempWord += sceneLoader.theWord[j];
             }
-            //print(tempWord);
+            print(tempWord.Length);
 
-            if (tempWord.Length > 0) // decrease the total point by 75 for each hint 
+            if (tempWord.Length > 0 && floatScore > 20 * sceneLoader.theWord.Length) 
             {
-                totalScore = PlayerPrefs.GetInt("TotalScore"); 
-                PlayerPrefs.SetInt("TotalScore", totalScore - 75);
-                //print(totalScore);
+                floatScore -= 75f;
+                scoreBar.GetComponent<Text>().text = floatScore.ToString();
+                ScoreSetter(); // to adjust the score board 
+
+                // decrease the total point by 75 for each hint 
+                //totalScore = PlayerPrefs.GetInt("TotalScore"); 
+                //PlayerPrefs.SetInt("TotalScore", totalScore - 75);
             }
 
             // to light the respective area of black area with blue by considering the position of missing letter

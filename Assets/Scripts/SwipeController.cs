@@ -15,6 +15,7 @@ public class SwipeController : MonoBehaviour
     [HideInInspector] public bool fingerDown;
 
     public float laneSpeed; // speed constant of the lane while moving it
+    public int speedBoundary; // to limit the max speed of swiping letters
     private float moveX; // to move the lane in x-axis
     private float moveY; // to move the lane in y-axis
 
@@ -369,12 +370,12 @@ public class SwipeController : MonoBehaviour
                     for (int k = 0; (k < n1); k++) // needs to be recoded
                     {
                         // to adjust the swipe speed
-                        if (moveX * laneSpeed * Time.deltaTime <= 6f && moveX * laneSpeed * Time.deltaTime >= -6f)
+                        if (moveX * laneSpeed * Time.deltaTime <= speedBoundary && moveX * laneSpeed * Time.deltaTime >= -speedBoundary)
                             lettersX[k].transform.Translate(moveX * laneSpeed * Time.deltaTime, 0f, 0f);
-                        else if (moveX * laneSpeed * Time.deltaTime > 6f)
-                            lettersX[k].transform.Translate(6f, 0f, 0f);
+                        else if (moveX * laneSpeed * Time.deltaTime > speedBoundary)
+                            lettersX[k].transform.Translate(speedBoundary, 0f, 0f);
                         else
-                            lettersX[k].transform.Translate(-6f, 0f, 0f);
+                            lettersX[k].transform.Translate(-speedBoundary, 0f, 0f);
 
                         //print(moveY * laneSpeed * Time.deltaTime);
                         //print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.x.ToString());
@@ -398,12 +399,12 @@ public class SwipeController : MonoBehaviour
                     for (int k = 0; (k < n2); k++) // needs to be recoded                  
                     {
                         // to adjust the swipe speed
-                        if (moveY * laneSpeed * Time.deltaTime <= 6f && moveY * laneSpeed * Time.deltaTime >= -6f)
+                        if (moveY * laneSpeed * Time.deltaTime <= speedBoundary && moveY * laneSpeed * Time.deltaTime >= -speedBoundary)
                             lettersY[k].transform.Translate(0f, moveY * laneSpeed * Time.deltaTime, 0f);
-                        else if (moveY * laneSpeed * Time.deltaTime >= 6f)
-                            lettersY[k].transform.Translate(0f, 6f, 0f);
+                        else if (moveY * laneSpeed * Time.deltaTime >= speedBoundary)
+                            lettersY[k].transform.Translate(0f, speedBoundary, 0f);
                         else
-                            lettersY[k].transform.Translate(0f, -6f, 0f);
+                            lettersY[k].transform.Translate(0f, -speedBoundary, 0f);
 
                         //print(lettersY[k].ToString() +": "+lettersY[k].transform.position.y.ToString());
 

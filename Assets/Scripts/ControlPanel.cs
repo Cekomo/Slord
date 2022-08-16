@@ -41,10 +41,13 @@ public class ControlPanel : MonoBehaviour
     private string tempWord; // temporary word to detetct missing letters on the table
     private bool isRepeated; // to determine if any letter is repeated in the word
 
+    private char[] hintChar; // required to catch the word letters not existing on the table
+    private char[] theWordChar; // the word formed with char array
+    private string zort;
     void Start()
     {
         tableLetters = GameObject.FindGameObjectsWithTag("Letter");
-        
+
         upperReflector = GameObject.FindGameObjectsWithTag("UpperReflector");
         lowerReflector = GameObject.FindGameObjectsWithTag("LowerReflector");
         leftReflector = GameObject.FindGameObjectsWithTag("LeftReflector");
@@ -60,6 +63,16 @@ public class ControlPanel : MonoBehaviour
         scoreBar.GetComponent<Text>().text = (100 * sceneLoader.theWord.Length).ToString(); // to determine interface score      
         ScoreSetter();
 
+        // the word converted to char array
+        theWordChar = new char[sceneLoader.theWord.Length];
+        for (i = 0; i < sceneLoader.theWord.Length; i++)
+            theWordChar[i] = sceneLoader.theWord[i];
+
+        hintChar = new char[7];
+        // assign char to the elements not to face with null exception
+        for (int i = 0; i < 7; i++)
+            hintChar[i] = '.';
+
         // for experimental purposes
         //PlayerPrefs.SetInt("TotalScore", 0);
         //PlayerPrefs.Save();
@@ -73,7 +86,7 @@ public class ControlPanel : MonoBehaviour
             // decrease the score with each swipe operation leter by letter
             // ------------------------------------
             floatScore = float.Parse(scoreBar.GetComponent<Text>().text);
-            if (floatScore > 20 * sceneLoader.theWord.Length) 
+            if (floatScore > 20 * sceneLoader.theWord.Length)
                 floatScore = floatScore - swipeController.pointDecrement;
             else if (floatScore < 20 * sceneLoader.theWord.Length)
                 floatScore = 20 * sceneLoader.theWord.Length;
@@ -128,7 +141,7 @@ public class ControlPanel : MonoBehaviour
     {
         if (!swipeController.isFinished)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
+
         totalScore = PlayerPrefs.GetInt("TotalScore");
         PlayerPrefs.SetInt("TotalScore", totalScore - 75);
     }
@@ -140,7 +153,7 @@ public class ControlPanel : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        if (level+1 < 10) // add "0" to make the level more convenient in the screen
+        if (level + 1 < 10) // add "0" to make the level more convenient in the screen
             levelBar.GetComponent<Text>().text = "Level 0" + (level + 1).ToString();
         else
             levelBar.GetComponent<Text>().text = "Level " + (level + 1).ToString();
@@ -157,7 +170,7 @@ public class ControlPanel : MonoBehaviour
     {
         if (!startFading) // boolean is used for activity of hint button as well as fading mechanism
         {
-            
+
             letters = GameObject.FindGameObjectsWithTag("Letter");
 
             // to receive the needed letters inside the table
@@ -177,9 +190,20 @@ public class ControlPanel : MonoBehaviour
                     i++;
                 }
             }
-            print(tableWord);
+            print("tableword: "+tableWord);
 
-            i = 0; // to represent index of char array 
+            // asign hint char array with tableword letters
+            for (int j = 0; j < tableWord.Length; j++)
+                hintChar[j] = tableWord[j];
+
+            // assign the elements with each letter in the word
+            for (int j = 0; j < sceneLoader.theWord.Length; j++)
+                theWordChar[j] = sceneLoader.theWord[j];
+
+            //for (int j = 0; j < theWordChar.Length; j++)
+            //    print(hintChar[j]);
+
+            //i = 0; // to represent index of char array 
             for (int j = 0; j < letters.Length; j++)
             {
                 if (letters[j].GetComponent<Text>().text.Length == 2) // to prevent OutOfRange error
@@ -189,30 +213,68 @@ public class ControlPanel : MonoBehaviour
                     }
             }
 
+            i = 0; tempWord = "";
+            for (int j = 0; j < theWordChar.Length; j++)
+            {
+                for (int k = 0; k < hintChar.Length; k++)
+                {
+                    try
+                    {
+                        if (hintChar[k] == theWordChar[j] && theWordChar[j] != '.')
+                        {
+                            hintChar[k] = '.';
+                            theWordChar[j] = '.';
+                            break;
+                        }
+                    }
+                    catch 
+                    { }
+                }
+                tempWord = ""; zort = "";
+                for (int l = 0; l < theWordChar.Length; l++)
+                {
+                    if (theWordChar[l] != '.')
+                        tempWord += theWordChar[l];
+                    try
+                    {
+                        if (hintChar[l] != '.')
+                            zort += hintChar[l];
+                    } catch { }
+                }
+                print("tempword: " + tempWord + " hint: " + zort);
+            }
+
+            //tempWord = "";
+            //for (int j = 0; j < theWordChar.Length; j++)
+            //    tempWord += theWordChar[j];
+            //print(tempWord);
+
             // this for loop may need some work 
             // it is responsible from detecting the word letters not present on the table
-            tempWord = ""; 
-            for (int j = 0; j < sceneLoader.theWord.Length; j++)
-            {
-                i = 0;
-                for (int t = 0; t < sceneLoader.theWord.Length; t++)
-                    if (t != j && sceneLoader.theWord[j] == sceneLoader.theWord[t])
-                        i++;
-                
-                isFound = true;
-                for (int k = 0; k < tableWord.Length; k++)
-                {
-                    if (sceneLoader.theWord[j] == tableWord[k] && i <= 0)
-                        isFound = false;
-                    else if (sceneLoader.theWord[j] == tableWord[k] && i > 0)
-                        i--;
-                }
-                if (isFound)
-                    tempWord += sceneLoader.theWord[j];
-            }
-            print(tempWord.Length);
+            //tempWord = "";
+            //for (int j = 0; j < sceneLoader.theWord.Length; j++)
+            //{
+            //    i = 0;
+            //    for (int t = 0; t < sceneLoader.theWord.Length; t++)
+            //        if (t != j && sceneLoader.theWord[j] == sceneLoader.theWord[t])
+            //            i++;
 
-            if (tempWord.Length > 0 && floatScore > 20 * sceneLoader.theWord.Length) 
+            //    isFound = true;
+            //    for (int k = 0; k < tableWord.Length; k++)
+            //    {
+            //        if (sceneLoader.theWord[j] == tableWord[k] && i <= 0)
+            //            isFound = false;
+            //        else if (sceneLoader.theWord[j] == tableWord[k] && i > 0)
+            //            i--;
+            //    }
+            //    if (isFound)
+            //        tempWord += sceneLoader.theWord[j];
+            //}
+            //print(tempWord.Length);
+
+            
+
+            if (tempWord.Length > 0 && floatScore > 20 * sceneLoader.theWord.Length)
             {
                 floatScore -= 75f;
                 scoreBar.GetComponent<Text>().text = floatScore.ToString();
@@ -224,7 +286,7 @@ public class ControlPanel : MonoBehaviour
             }
 
             // to light the respective area of black area with blue by considering the position of missing letter
-            i = 0; isFound = false; 
+            i = 0; isFound = false;
             while (i < tempWord.Length && !isFound)
             {
                 for (int j = 0; j < letters.Length; j++)
@@ -268,5 +330,5 @@ public class ControlPanel : MonoBehaviour
             startFading = true;
         }
     }
-    
+
 }

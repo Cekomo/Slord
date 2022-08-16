@@ -120,7 +120,7 @@ public class WordCatcher : MonoBehaviour
             for (int i = 0; i < tempWord1.Length; i++) // tempword1 -> sceneLoader.theWord
                 desiredWord1 += tempWord1[i]; // index bound error fix it
 
-            print(desiredWord1);
+            //print(desiredWord1);
 
             if (desiredWord1 == sceneLoader.theWord)
             {

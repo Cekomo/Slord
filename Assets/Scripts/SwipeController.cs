@@ -32,6 +32,10 @@ public class SwipeController : MonoBehaviour
 
     private GameObject[] lettersX; // all letters at the same x-axis of clicked letter
     private GameObject[] lettersY; // all letters at the same y-axis of clicked letter
+    //private Vector2 tempPos; // temp variable to sort letters on x/y-axis
+    //private GameObject tempLetter; // temporary letter for sorting letter located on x/y-axis
+    //private int q; // to adjust position of next letter
+
     private int n1; // index helps to save the correct letters inside lettersX/Y
     private int n2; // index helps to save the correct letters inside lettersX/Y
     private int n3; // indext to rearrange the limit exceeding lane
@@ -101,208 +105,7 @@ public class SwipeController : MonoBehaviour
             }
 
     }
-    
-    /*
-    void Update()
-    {
-        // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-        //                  FOR PC
-        // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-        if (Input.GetMouseButtonDown(0)) startPos = Input.mousePosition;
-        if (startPos.x > 85 && startPos.x < 995 && startPos.y < 1380 && startPos.y > 285) inTable = true;
 
-        if (Input.GetMouseButtonDown(0) && inTable && !isFinished)
-        {
-            //n = 0;          
-            startPos = Input.mousePosition; // this and below variable may cause problem due to common use
-            for (int i = 0; i < letters.Length; i++)
-            {
-                letterPos = letters[i].transform.position; // to determine the letter to move on x/y-axis
-                if (startPos.x > letterPos.x - 75 && startPos.x < letterPos.x + 75 && startPos.y > letterPos.y - 77.5f && startPos.y < letterPos.y + 77.5f)
-                        theLetter = letters[i];
-            }
-
-            //for (int i = 0; i < 8; i++)  // this for loop is the vertical determinant
-            //    for (int j = 0; j < 7; j++) // this for loop is the horizontal determinant                
-            //        if (startPos.x > (15+j*150) && startPos.x < (15+(j+1)*150) && startPos.y > (1485-(i+1)*150) && startPos.y < (1485-i*150))                 
-            //            theLetter = letters[(i * 7) + j];                    
-
-            //print(theLetter); // inspect the letter transition to understand the error
-            letterPos = theLetter.transform.position;
-            //print(letterPos);
-            // adjust these loops as single of them will be executed at each buttonDown action
-            for (int k = 0; k < letters.Length; k++)
-                if (letters[k].transform.position.y > letterPos.y - 75 && letters[k].transform.position.y < letterPos.y + 75)
-                {
-                    lettersX[n1] = letters[k];
-                    n1++;
-                }
-            //n = 0;
-            for (int l = 0; l < letters.Length; l++)
-                if (letters[l].transform.position.x > letterPos.x - 75 && letters[l].transform.position.x < letterPos.x + 75)
-                {
-                    lettersY[n2] = letters[l];
-                    n2++;
-                }
-        }
-
-        moveX = Input.GetAxis("Mouse X");
-        moveY = Input.GetAxis("Mouse Y");
-
-        if (fingerDown == false && Input.GetMouseButton(0))
-            fingerDown = true;
-
-        if (Input.GetMouseButtonDown(0))
-            startPos = Input.mousePosition;
-
-        if (fingerDown && inTable && !isFinished)
-        {
-            if (isXmove)
-                if (Input.mousePosition.x <= startPos.x - pD || Input.mousePosition.x >= startPos.x + pD)
-                {
-                    isYmove = false;
-                    fingerDown = false;
-                    //theLetter.transform.Translate(moveX * laneSpeed * laneSpeed * Time.deltaTime, 0f, 0f);
-                    for (int k = 0; (k < n1); k++) // needs to be recoded
-                    {
-                        // to adjust the swipe speed
-                        if (moveX * laneSpeed * Time.deltaTime <= 4.5f && moveX * laneSpeed * Time.deltaTime >= -4.5f)
-                            lettersX[k].transform.Translate(moveX * laneSpeed * Time.deltaTime, 0f, 0f);
-                        else if (moveX * laneSpeed * Time.deltaTime > 4.5f)
-                            lettersX[k].transform.Translate(4.5f, 0f, 0f);
-                        else
-                            lettersX[k].transform.Translate(-4.5f, 0f, 0f);
-
-                        //print(moveY * laneSpeed * Time.deltaTime);
-                        //print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.x.ToString());
-                        //print(lettersX[k].ToString() + ": " + lettersX[k].transform.position.y.ToString());
-
-                        // to adjust swipe borders (letter transfer to other end)
-                        if (lettersX[k].transform.position.x > 2188.5f)
-                            lettersX[k].transform.position = new Vector2(-958.5f, lettersX[k].transform.position.y);
-                        else if (lettersX[k].transform.position.x < -1108.5f)
-                            lettersX[k].transform.position = new Vector2(2038.5f, lettersX[k].transform.position.y);
-                    }
-                }
-
-            if (isYmove)
-            {
-                if (Input.mousePosition.y >= startPos.y + pD || Input.mousePosition.y <= startPos.y - pD)
-                {
-                    isXmove = false;
-                    fingerDown = false;
-                    //theLetter.transform.Translate(0f, moveY * laneSpeed * laneSpeed * Time.deltaTime, 0f);                   
-                    for (int k = 0; (k < n2); k++) // needs to be recoded                  
-                    {
-                        // to adjust the swipe speed
-                        if (moveY * laneSpeed * Time.deltaTime <= 4.5f && moveY * laneSpeed * Time.deltaTime >= -4.5f)
-                            lettersY[k].transform.Translate(0f, moveY * laneSpeed * Time.deltaTime, 0f);
-                        else if (moveY * laneSpeed * Time.deltaTime >= 4.5f)
-                            lettersY[k].transform.Translate(0f, 4.5f, 0f);
-                        else
-                            lettersY[k].transform.Translate(0f, -4.5f, 0f);
-
-                        //print(lettersY[k].ToString() +": "+lettersY[k].transform.position.y.ToString());
-
-                        // to adjust swipe borders (letter transfer to other end)
-                        if (lettersY[k].transform.position.y > 2790)
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
-                        else if (lettersY[k].transform.position.y < -1085) // -955
-                            lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
-                    }
-                }
-            }
-        }
-
-        // this statement is for decreasing the point for every letter swiping from the score
-        if (Input.GetMouseButton(0)) // nextLevel button error occurs here when presses
-        {
-            if (isXmove && Mathf.Abs(letterPos.x - theLetter.transform.position.x) >= 150)
-            {
-                distDiff = letterPos.x - theLetter.transform.position.x;
-                pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 150) * 3;
-                //print(pointDecrement);
-                letterPos.x = theLetter.transform.position.x;
-            }
-            else if (isYmove && Mathf.Abs(letterPos.y - theLetter.transform.position.y) >= 155)
-            {
-                distDiff = letterPos.y - theLetter.transform.position.y;
-                pointDecrement = Mathf.Round(Mathf.Abs(distDiff) / 155) * 3;
-                //print(pointDecrement);
-                letterPos.y = theLetter.transform.position.y;
-            }
-        }
-
-        // statement that enables targeted axis motion and disables other
-        if (Input.GetMouseButtonUp(0) && inTable && !isFinished)
-        {
-            // two statements below is to calculate point increment on x/y axis
-
-            //print(Mathf.Abs(distDiff));
-
-            // (2640, -155, -925) !Below statement is not functional!
-            //if (!isXmove) // work from here if you need to rearrange letters due to 
-            //    for (int k = 0; k < n2; k++)
-            //        if ((lettersY[k].transform.position.y - 5) % 155 != 0)
-            //            for (int i = 0; i < lettersY.Length; i++)
-            //                if (lettersY[i].transform.position.y > (i * 155 - 925) - 77.5f && lettersY[i].transform.position.y < (i * 155 - 925) + 77.5f)
-            //                    lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, i * 155 - 925);
-
-            // (-960, 150, 2040)
-
-            if (!isYmove)
-            {
-                surplusL = (lettersX[0].transform.position.x+58) % 150; // exactly 82.20661
-                if (surplusL > 75)
-                    surplusL = -(150 - surplusL);
-
-                for (int k = 0; k < n1; k++)
-                {
-                    print(lettersX[k].transform.position.x.ToString() + " " + lettersX[k].ToString());
-                    // it brokes the editor
-                    //while (lettersX[k].transform.position.x < lettersX[k].transform.position.x - surplusL)
-                    //    lettersX[k].transform.Translate(-surplusL * Time.deltaTime, 0f, 0f);
-
-                    // specifies the end letters when mousebuttonup occurs if they're out of border
-                    lettersX[k].transform.position = new Vector2(lettersX[k].transform.position.x - surplusL, lettersX[k].transform.position.y);
-                    if (lettersX[k].transform.position.x > 2088.5f) // 2040
-                        lettersX[k].transform.position = new Vector2(-958.5f, lettersX[k].transform.position.y);
-                    if (lettersX[k].transform.position.x < -1008.45f) // -960
-                        lettersX[k].transform.position = new Vector2(2038.5f, lettersX[k].transform.position.y);
-                }
-            }
-            if (!isXmove)
-            {
-                surplusL = (lettersY[0].transform.position.y + 13) % 155; // 13.356 exactly
-                if (surplusL > 77.5f)
-                    surplusL = -(155 - surplusL);
-
-                for (int k = 0; k < n2; k++)
-                {
-                    //print(lettersY[k].transform.position.y.ToString() + " " + lettersY[k].ToString());
-
-                    // specifies the end letters when mousebuttonup occurs if they're out of border
-                    lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, lettersY[k].transform.position.y - surplusL);
-                    if (lettersY[k].transform.position.y > 2712.5f) // 2640
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
-                    else if (lettersY[k].transform.position.y < -1007.5f) // -925
-                        lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
-                }
-
-                // to check 
-                //print(lettersY[0].ToString() + ": "+ (lettersY[0].transform.position.y+5).ToString());
-                //print(surplusL);
-            }
-
-            isXmove = true;
-            isYmove = true;
-            n1 = 0; n2 = 0;
-        }
-
-        inTable = false; // after loop finishes, inTable is false for the next loop
-    }   */
-
-    ///*
     void Update()
     {
         // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -361,9 +164,12 @@ public class SwipeController : MonoBehaviour
 
         if (fingerDown && inTable && !isFinished)
         {
-            if (isXmove)
+            if (isXmove) // letter transfer in both end while the press continues
                 if (Input.touches[0].position.x <= startPos.x - pD || Input.touches[0].position.x >= startPos.x + pD)
                 {
+                    //for (int i = 0; i < 21; i++) // to check the position of letters on x-axis
+                    //    print(lettersX[i].transform.position);
+
                     isYmove = false;
                     fingerDown = false;
                     //theLetter.transform.Translate(moveX * laneSpeed * laneSpeed * Time.deltaTime, 0f, 0f);
@@ -386,13 +192,21 @@ public class SwipeController : MonoBehaviour
                             lettersX[k].transform.position = new Vector2(-958.5f, lettersX[k].transform.position.y);
                         else if (lettersX[k].transform.position.x < -1108.5f)
                             lettersX[k].transform.position = new Vector2(2038.5f, lettersX[k].transform.position.y);
+
+                        //if (lettersX[k].transform.position.x > 2188.5f)
+                        //    lettersX[k].transform.position = new Vector2(-958.5f, lettersX[k].transform.position.y);
+                        //else if (lettersX[k].transform.position.x < -1108.5f)
+                        //    lettersX[k].transform.position = new Vector2(2038.5f, lettersX[k].transform.position.y);
                     }
                 }
 
-            if (isYmove)
+            if (isYmove) // letter transfer in both end while the press continues
             {
                 if (Input.touches[0].position.y >= startPos.y + pD || Input.touches[0].position.y <= startPos.y - pD)
                 {
+                    //for (int i = 0; i < 24; i++) // to check the position of letters on y-axis
+                    //    print(lettersY[i].transform.position);
+
                     isXmove = false;
                     fingerDown = false;
                     //theLetter.transform.Translate(0f, moveY * laneSpeed * laneSpeed * Time.deltaTime, 0f);                   
@@ -413,6 +227,11 @@ public class SwipeController : MonoBehaviour
                             lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
                         else if (lettersY[k].transform.position.y < -1085) // -955
                             lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
+
+                        //if (lettersY[k].transform.position.y > 2790)
+                        //    lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, -930);
+                        //else if (lettersY[k].transform.position.y < -1085) // -955
+                        //    lettersY[k].transform.position = new Vector2(lettersY[k].transform.position.x, 2635);
                     }
                 }
             }
@@ -440,22 +259,33 @@ public class SwipeController : MonoBehaviour
         // statement that enables targeted axis motion and disables other
         if (Input.GetTouch(0).phase == TouchPhase.Ended && inTable && !isFinished)
         {
-            // two statements below is to calculate point increment on x/y axis
-
-            //print(Mathf.Abs(distDiff));
-
-            // (2640, -155, -925) !Below statement is not functional!
-            //if (!isXmove) // work from here if you need to rearrange letters due to 
-            //    for (int k = 0; k < n2; k++)
-            //        if ((lettersY[k].transform.position.y - 5) % 155 != 0)
-            //            for (int i = 0; i < lettersY.Length; i++)
-            //                if (lettersY[i].transform.position.y > (i * 155 - 925) - 77.5f && lettersY[i].transform.position.y < (i * 155 - 925) + 77.5f)
-            //                    lettersY[i].transform.position = new Vector2(lettersY[i].transform.position.x, i * 155 - 925);
-
-            // (-960, 150, 2040)
-
+            // note: assigning n1 and n2 does not mean anything since they are constant 21 and 24
             if (!isYmove)
             {
+                // X: -958.5, 2038.5
+                // Y: 2635, -930
+
+                // for loop to sort letters on x-axis
+                //q = 0;
+                //for (int k = 0; k < 21; k++)
+                //{
+                //    tempLetter = lettersX[k];                  
+                //    for (int j = 0; j < 21; j++)
+                //    {
+                //        tempPos = lettersX[j].transform.position;
+                //        if (tempPos.x >= (-958.5f + q * 150 - 20) && tempPos.x <= (-958.5f + q * 150 + 20))
+                //        {
+                //            lettersX[k] = lettersX[j];
+                //            lettersX[j] = tempLetter;
+                //            //print(q.ToString() + ": " + lettersX[k].transform.position.x);
+                //            q++;
+                //            break;
+                //        }
+                //    }
+                //}
+                //for (int k = 0; k < 21; k++)
+                //    print(lettersX[k].transform.position);
+
                 surplusL = (lettersX[0].transform.position.x + 58) % 150; // exactly 82.20661
                 if (surplusL > 75)
                     surplusL = -(150 - surplusL);
@@ -475,8 +305,30 @@ public class SwipeController : MonoBehaviour
                         lettersX[k].transform.position = new Vector2(2038.5f, lettersX[k].transform.position.y);
                 }
             }
+
             if (!isXmove)
             {
+                // for loop to sort the letter on y-axis
+                //q = 0;
+                //for (int k = 0; k < 24; k++)
+                //{
+                //    tempLetter = lettersY[k];
+                //    for (int j = 0; j < 24; j++)
+                //    {
+                //        tempPos = lettersY[j].transform.position;
+                //        if (tempPos.y >= (2635 - q * 155 - 8) && tempPos.y <= (2635 - q * 155 + 8))
+                //        {
+                //            lettersY[k] = lettersY[j];
+                //            lettersY[j] = tempLetter;
+                //            //print(q.ToString() + ": " + lettersY[k].transform.position.y);
+                //            q++;
+                //            break;
+                //        }
+                //    }
+                //}
+                //for (int k = 0; k < 24; k++)
+                //    print(lettersY[k].transform.position);
+
                 surplusL = (lettersY[0].transform.position.y) % 155; // 13.356 exactly
                 if (surplusL > 77.5f)
                     surplusL = -(155 - surplusL);
@@ -504,5 +356,5 @@ public class SwipeController : MonoBehaviour
         }
 
         inTable = false; // after loop finishes, inTable is false for the next loop
-    }   //*/
+    }   
 }
